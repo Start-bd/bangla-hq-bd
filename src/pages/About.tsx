@@ -1,4 +1,5 @@
 import { useLanguage } from "@/lib/language-context";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
