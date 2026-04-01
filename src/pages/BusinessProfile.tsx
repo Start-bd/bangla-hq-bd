@@ -1,10 +1,11 @@
 import { useParams, Link } from "react-router-dom";
 import { useLanguage } from "@/lib/language-context";
-import { businesses } from "@/lib/mock-data";
-import { CheckCircle, Star, MapPin, Users, Phone, Mail, Globe, Facebook, ArrowLeft, Calendar, Building2, ExternalLink } from "lucide-react";
+import { useBusinessBySlug, useBusinesses } from "@/hooks/use-businesses";
+import { CheckCircle, Star, MapPin, Users, Phone, Mail, Globe, Facebook, ArrowLeft, Calendar, Building2, ExternalLink, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BusinessCard from "@/components/BusinessCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 
 const tabs = [
   { id: "about", en: "About", bn: "সম্পর্কে" },
@@ -13,12 +14,69 @@ const tabs = [
   { id: "contact", en: "Contact", bn: "যোগাযোগ" },
 ];
 
+function BusinessJsonLd({ business }: { business: any }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: business.name_en,
+    alternateName: business.name_bn,
+    description: business.description_en,
+    url: `https://banglahq.com/${business.slug}`,
+    telephone: business.phone || undefined,
+    email: business.email || undefined,
+    foundingDate: business.founded_year ? String(business.founded_year) : undefined,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: business.district,
+      addressRegion: business.division,
+      addressCountry: "BD",
+    },
+    ...(business.rating_count > 0 && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: business.rating_avg,
+        reviewCount: business.rating_count,
+        bestRating: 5,
+        worstRating: 1,
+      },
+    }),
+    ...(business.logo_url && { image: business.logo_url }),
+    ...(business.website_url && { sameAs: [business.website_url, business.facebook_url].filter(Boolean) }),
+  };
+
+  return (
+    <Helmet>
+      <title>{`${business.name_en} — ${business.name_bn} | BanglaHQ`}</title>
+      <meta name="description" content={`${business.description_en.slice(0, 155)}...`} />
+      <meta property="og:title" content={`${business.name_en} | BanglaHQ`} />
+      <meta property="og:description" content={business.tagline_en || business.description_en.slice(0, 155)} />
+      <meta property="og:type" content="business.business" />
+      <meta property="og:url" content={`https://banglahq.com/${business.slug}`} />
+      <link rel="canonical" href={`https://banglahq.com/${business.slug}`} />
+      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+    </Helmet>
+  );
+}
+
 export default function BusinessProfile() {
   const { slug } = useParams();
   const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState("about");
+  const { data: business, isLoading } = useBusinessBySlug(slug);
+  const { data: similarBusinesses = [] } = useBusinesses({
+    category: business?.category ?? undefined,
+    limit: 3,
+  });
 
-  const business = businesses.find((b) => b.slug === slug);
+  const similar = similarBusinesses.filter((b) => b.slug !== slug).slice(0, 3);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-muted-foreground">{t("Loading...", "লোড হচ্ছে...")}</p>
+      </div>
+    );
+  }
 
   if (!business) {
     return (
@@ -35,11 +93,24 @@ export default function BusinessProfile() {
     );
   }
 
-  const similar = businesses.filter((b) => b.category === business.category && b.id !== business.id).slice(0, 3);
   const initials = business.name_en.slice(0, 2).toUpperCase();
+
+  const handleFacebookShare = () => {
+    const url = encodeURIComponent(`https://banglahq.com/${business.slug}`);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, "_blank", "width=600,height=400");
+  };
+
+  const handleWhatsAppContact = () => {
+    if (business.phone) {
+      const phone = business.phone.replace(/[^0-9+]/g, "");
+      window.open(`https://wa.me/${phone}`, "_blank");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
+      <BusinessJsonLd business={business} />
+
       {/* Cover */}
       <div className="h-48 md:h-64 bg-gradient-to-r from-primary/80 to-primary/40 relative">
         <div className="container mx-auto px-4 pt-4">
@@ -103,6 +174,11 @@ export default function BusinessProfile() {
                     <a href={`tel:${business.phone}`}><Phone size={14} /> {t("Call", "কল")}</a>
                   </Button>
                 )}
+                {business.phone && (
+                  <Button variant="outline" size="sm" onClick={handleWhatsAppContact} className="text-green-600 border-green-600/30 hover:bg-green-50">
+                    💬 WhatsApp
+                  </Button>
+                )}
                 {business.email && (
                   <Button variant="outline" size="sm" asChild>
                     <a href={`mailto:${business.email}`}><Mail size={14} /> {t("Email", "ইমেইল")}</a>
@@ -118,6 +194,9 @@ export default function BusinessProfile() {
                     <a href={business.facebook_url} target="_blank" rel="noopener noreferrer"><Facebook size={14} /> Facebook</a>
                   </Button>
                 )}
+                <Button variant="outline" size="sm" onClick={handleFacebookShare}>
+                  <Share2 size={14} /> {t("Share", "শেয়ার")}
+                </Button>
               </div>
             </div>
           </div>
@@ -279,6 +358,11 @@ export default function BusinessProfile() {
                 </div>
               </div>
             </div>
+
+            {/* Facebook Share */}
+            <Button variant="outline" className="w-full" onClick={handleFacebookShare}>
+              <Facebook size={16} className="text-blue-600" /> {t("Share on Facebook", "ফেসবুকে শেয়ার করুন")}
+            </Button>
           </div>
         </div>
 
