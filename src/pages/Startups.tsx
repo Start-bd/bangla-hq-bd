@@ -2,12 +2,12 @@ import { useLanguage } from "@/lib/language-context";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import BusinessCard from "@/components/BusinessCard";
-import { businesses } from "@/lib/mock-data";
+import { useBusinesses } from "@/hooks/use-businesses";
 import { Zap, ArrowRight } from "lucide-react";
 
 export default function Startups() {
   const { t } = useLanguage();
-  const startups = businesses.filter((b) => b.is_startup);
+  const { data: startups = [], isLoading } = useBusinesses({ startup: true });
 
   return (
     <div className="min-h-screen bg-background">
@@ -28,12 +28,16 @@ export default function Startups() {
         </div>
       </div>
       <div className="container mx-auto px-4 py-8">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {startups.map((biz) => (
-            <BusinessCard key={biz.id} business={biz} />
-          ))}
-        </div>
-        {startups.length === 0 && (
+        {isLoading ? (
+          <p className="text-center text-muted-foreground">{t("Loading...", "লোড হচ্ছে...")}</p>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {startups.map((biz) => (
+              <BusinessCard key={biz.id} business={biz} />
+            ))}
+          </div>
+        )}
+        {!isLoading && startups.length === 0 && (
           <div className="text-center py-16">
             <p className="text-muted-foreground">{t("No startups yet.", "এখনো কোনো স্টার্টআপ নেই।")}</p>
           </div>

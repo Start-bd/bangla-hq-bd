@@ -1,21 +1,22 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { useLanguage } from "@/lib/language-context";
-import { Search, MapPin, SlidersHorizontal, X } from "lucide-react";
+import { Search, SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BusinessCard from "@/components/BusinessCard";
-import { businesses, categories, divisions } from "@/lib/mock-data";
+import { categories, divisions } from "@/lib/mock-data";
+import { useBusinesses } from "@/hooks/use-businesses";
 
 export default function Directory() {
   const { t } = useLanguage();
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedDivision, setSelectedDivision] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
 
-  const filtered = businesses.filter((b) => {
-    const matchSearch = !search || b.name_en.toLowerCase().includes(search.toLowerCase()) || b.name_bn.includes(search);
-    const matchCat = !selectedCategory || b.category === selectedCategory;
-    return matchSearch && matchCat;
+  const { data: businesses = [], isLoading } = useBusinesses({
+    category: selectedCategory,
+    division: selectedDivision,
+    search: search || undefined,
   });
 
   return (
@@ -93,10 +94,17 @@ export default function Directory() {
                   {t("Division", "বিভাগ")}
                 </h4>
                 <div className="space-y-1">
+                  <button
+                    onClick={() => { setSelectedDivision(null); setShowFilters(false); }}
+                    className={`w-full text-left px-3 py-2 rounded-md text-sm font-ui transition-colors ${!selectedDivision ? "bg-primary/10 text-primary" : "hover:bg-accent text-muted-foreground"}`}
+                  >
+                    {t("All Divisions", "সব বিভাগ")}
+                  </button>
                   {divisions.map((div) => (
                     <button
                       key={div.name_en}
-                      className="w-full text-left px-3 py-2 rounded-md text-sm font-ui text-muted-foreground hover:bg-accent transition-colors flex items-center justify-between"
+                      onClick={() => { setSelectedDivision(div.name_en); setShowFilters(false); }}
+                      className={`w-full text-left px-3 py-2 rounded-md text-sm font-ui transition-colors flex items-center justify-between ${selectedDivision === div.name_en ? "bg-primary/10 text-primary" : "hover:bg-accent text-muted-foreground"}`}
                     >
                       <span>{t(div.name_en, div.name_bn)}</span>
                       <span className="text-xs font-data">{div.count.toLocaleString()}</span>
@@ -111,7 +119,7 @@ export default function Directory() {
           <div className="flex-1">
             <div className="flex items-center justify-between mb-4">
               <p className="text-sm text-muted-foreground font-ui">
-                {filtered.length} {t("businesses found", "ব্যবসা পাওয়া গেছে")}
+                {isLoading ? t("Loading...", "লোড হচ্ছে...") : `${businesses.length} ${t("businesses found", "ব্যবসা পাওয়া গেছে")}`}
               </p>
               <select className="text-sm font-ui border border-border rounded-md px-3 py-1.5 bg-card">
                 <option>{t("Relevance", "প্রাসঙ্গিকতা")}</option>
@@ -120,11 +128,11 @@ export default function Directory() {
               </select>
             </div>
             <div className="grid gap-4">
-              {filtered.map((biz) => (
+              {businesses.map((biz) => (
                 <BusinessCard key={biz.id} business={biz} />
               ))}
             </div>
-            {filtered.length === 0 && (
+            {!isLoading && businesses.length === 0 && (
               <div className="text-center py-16">
                 <p className="text-muted-foreground font-ui">{t("No businesses found.", "কোনো ব্যবসা পাওয়া যায়নি।")}</p>
               </div>

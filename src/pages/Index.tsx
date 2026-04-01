@@ -4,7 +4,8 @@ import { useLanguage } from "@/lib/language-context";
 import { Button } from "@/components/ui/button";
 import { Search, MapPin, ArrowRight, Zap, Globe, Shield, TrendingUp } from "lucide-react";
 import BusinessCard from "@/components/BusinessCard";
-import { businesses, categories, divisions, ecosystemTools } from "@/lib/mock-data";
+import { categories, divisions, ecosystemTools } from "@/lib/mock-data";
+import { useBusinesses, useBusinessStats } from "@/hooks/use-businesses";
 
 function CountUp({ target, duration = 2000 }: { target: number; duration?: number }) {
   const [count, setCount] = useState(0);
@@ -42,7 +43,16 @@ const quickSearchChips = [
 
 export default function Index() {
   const { t } = useLanguage();
-  const featured = businesses.filter((b) => b.is_featured);
+  const { data: featuredBusinesses = [] } = useBusinesses({ featured: true, limit: 6 });
+  const { data: startups = [] } = useBusinesses({ startup: true, limit: 3 });
+  const { data: stats } = useBusinessStats();
+
+  const statsData = [
+    { value: stats?.total ?? 8450, en: "Businesses Listed", bn: "ব্যবসা তালিকাভুক্ত" },
+    { value: stats?.districts ?? 64, en: "Districts Covered", bn: "জেলা অন্তর্ভুক্ত" },
+    { value: stats?.verified ?? 1240, en: "Verified Companies", bn: "যাচাইকৃত কোম্পানি" },
+    { value: stats?.connections ?? 3800, en: "B2B Connections", bn: "B2B সংযোগ" },
+  ];
 
   return (
     <div>
@@ -110,12 +120,7 @@ export default function Index() {
       <section className="py-8 border-y border-border bg-card">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            {[
-              { value: 8450, en: "Businesses Listed", bn: "ব্যবসা তালিকাভুক্ত" },
-              { value: 64, en: "Districts Covered", bn: "জেলা অন্তর্ভুক্ত" },
-              { value: 1240, en: "Verified Companies", bn: "যাচাইকৃত কোম্পানি" },
-              { value: 3800, en: "B2B Connections", bn: "B2B সংযোগ" },
-            ].map((stat) => (
+            {statsData.map((stat) => (
               <div key={stat.en}>
                 <p className="font-display text-3xl md:text-4xl text-primary">
                   <CountUp target={stat.value} />+
@@ -175,7 +180,7 @@ export default function Index() {
             </Button>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {featured.map((biz) => (
+            {featuredBusinesses.map((biz) => (
               <BusinessCard key={biz.id} business={biz} />
             ))}
           </div>
@@ -229,7 +234,7 @@ export default function Index() {
             </Button>
           </div>
           <div className="grid md:grid-cols-3 gap-4">
-            {businesses.filter((b) => b.is_startup).slice(0, 3).map((biz) => (
+            {startups.map((biz) => (
               <BusinessCard key={biz.id} business={biz} />
             ))}
           </div>
