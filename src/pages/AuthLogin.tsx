@@ -26,7 +26,7 @@ export default function AuthLogin() {
       toast({ title: t("Login failed", "লগইন ব্যর্থ"), description: error.message, variant: "destructive" });
     } else {
       toast({ title: t("Welcome back!", "আবারও স্বাগতম!") });
-      navigate("/");
+      navigate("/dashboard");
     }
   };
 
