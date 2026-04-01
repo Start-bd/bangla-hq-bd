@@ -1,8 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/lib/language-context";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LayoutDashboard } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const BanglaHQLogo = () => (
   <Link to="/" className="flex items-center gap-1 group">
@@ -24,7 +25,18 @@ const navLinks = [
 export default function Navbar() {
   const { lang, toggleLang, t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session?.user);
+    });
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsLoggedIn(!!session?.user);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
     <>
@@ -56,9 +68,15 @@ export default function Navbar() {
             >
               {lang === "en" ? "বাং" : "EN"}
             </button>
-            <Button variant="ghost" size="sm" asChild>
-              <Link to="/auth/login">{t("Login", "লগইন")}</Link>
-            </Button>
+            {isLoggedIn ? (
+              <Button variant="ghost" size="sm" asChild>
+                <Link to="/dashboard"><LayoutDashboard size={14} className="mr-1" />{t("Dashboard", "ড্যাশবোর্ড")}</Link>
+              </Button>
+            ) : (
+              <Button variant="ghost" size="sm" asChild>
+                <Link to="/auth/login">{t("Login", "লগইন")}</Link>
+              </Button>
+            )}
             <Button variant="amber" size="sm" asChild>
               <Link to="/onboarding">{t("Add Business", "ব্যবসা যোগ করুন")}</Link>
             </Button>
@@ -87,11 +105,17 @@ export default function Navbar() {
                 <button onClick={toggleLang} className="px-3 py-2 rounded-md text-sm font-ui border border-border">
                   {lang === "en" ? "বাংলা" : "English"}
                 </button>
-                <Button variant="ghost" size="sm" asChild className="flex-1">
-                  <Link to="/auth/login">{t("Login", "লগইন")}</Link>
-                </Button>
+                {isLoggedIn ? (
+                  <Button variant="ghost" size="sm" asChild className="flex-1">
+                    <Link to="/dashboard" onClick={() => setMobileOpen(false)}>{t("Dashboard", "ড্যাশবোর্ড")}</Link>
+                  </Button>
+                ) : (
+                  <Button variant="ghost" size="sm" asChild className="flex-1">
+                    <Link to="/auth/login" onClick={() => setMobileOpen(false)}>{t("Login", "লগইন")}</Link>
+                  </Button>
+                )}
                 <Button variant="amber" size="sm" asChild className="flex-1">
-                  <Link to="/onboarding">{t("Add Business", "ব্যবসা যোগ করুন")}</Link>
+                  <Link to="/onboarding" onClick={() => setMobileOpen(false)}>{t("Add Business", "ব্যবসা যোগ করুন")}</Link>
                 </Button>
               </div>
             </div>
