@@ -1,4 +1,5 @@
 import { useLanguage } from "@/lib/language-context";
+import { Helmet } from "react-helmet-async";
 import { ecosystemTools } from "@/lib/mock-data";
 import { ExternalLink } from "lucide-react";
 
