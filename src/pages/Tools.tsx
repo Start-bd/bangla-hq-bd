@@ -17,6 +17,14 @@ export default function Tools() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Business Tools — Made in Bangladesh | BanglaHQ</title>
+        <meta name="description" content="Essential tools for Bangladeshi businesses. Discover Made-in-Bangladesh SaaS products and global tools for marketing, finance, HR, and communication." />
+        <link rel="canonical" href="https://banglahq.com/tools" />
+        <meta property="og:title" content="Business Tools | BanglaHQ" />
+        <meta property="og:description" content="Essential tools for Bangladeshi businesses — Made in Bangladesh and global." />
+        <meta property="og:url" content="https://banglahq.com/tools" />
+      </Helmet>
       <div className="bg-card border-b border-border py-12">
         <div className="container mx-auto px-4 text-center">
           <h1 className="font-heading font-bold text-3xl text-foreground">
