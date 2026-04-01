@@ -30,21 +30,28 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <Navbar />
             <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/directory" element={<Directory />} />
-              <Route path="/startups" element={<Startups />} />
-              <Route path="/pricing" element={<Pricing />} />
-              <Route path="/tools" element={<Tools />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/auth/login" element={<AuthLogin />} />
-              <Route path="/auth/signup" element={<AuthSignup />} />
-              <Route path="/onboarding" element={<Onboarding />} />
-              <Route path="/:slug" element={<BusinessProfile />} />
-              <Route path="*" element={<NotFound />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="*" element={
+                <>
+                  <Navbar />
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/directory" element={<Directory />} />
+                    <Route path="/startups" element={<Startups />} />
+                    <Route path="/pricing" element={<Pricing />} />
+                    <Route path="/tools" element={<Tools />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/auth/login" element={<AuthLogin />} />
+                    <Route path="/auth/signup" element={<AuthSignup />} />
+                    <Route path="/onboarding" element={<Onboarding />} />
+                    <Route path="/:slug" element={<BusinessProfile />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                  <Footer />
+                </>
+              } />
             </Routes>
-            <Footer />
           </BrowserRouter>
         </TooltipProvider>
       </LanguageProvider>
