@@ -14,6 +14,9 @@ import Startups from "./pages/Startups";
 import Pricing from "./pages/Pricing";
 import Tools from "./pages/Tools";
 import About from "./pages/About";
+import AuthLogin from "./pages/AuthLogin";
+import AuthSignup from "./pages/AuthSignup";
+import Onboarding from "./pages/Onboarding";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +37,9 @@ const App = () => (
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/tools" element={<Tools />} />
               <Route path="/about" element={<About />} />
+              <Route path="/auth/login" element={<AuthLogin />} />
+              <Route path="/auth/signup" element={<AuthSignup />} />
+              <Route path="/onboarding" element={<Onboarding />} />
               <Route path="/:slug" element={<BusinessProfile />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
