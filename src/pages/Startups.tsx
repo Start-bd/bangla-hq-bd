@@ -1,4 +1,5 @@
 import { useLanguage } from "@/lib/language-context";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import BusinessCard from "@/components/BusinessCard";
@@ -11,6 +12,14 @@ export default function Startups() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Bangladesh Startups — Emerging Tech & Innovation | BanglaHQ</title>
+        <meta name="description" content="Discover emerging Bangladeshi startups in technology, AI, fintech, and more. The definitive startup directory for Bangladesh." />
+        <link rel="canonical" href="https://banglahq.com/startups" />
+        <meta property="og:title" content="Bangladesh Startups | BanglaHQ" />
+        <meta property="og:description" content="Discover emerging Bangladeshi startups in technology, AI, fintech, and more." />
+        <meta property="og:url" content="https://banglahq.com/startups" />
+      </Helmet>
       <div className="bg-card border-b border-border py-12">
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-4">

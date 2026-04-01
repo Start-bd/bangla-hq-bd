@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useLanguage } from "@/lib/language-context";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,14 @@ export default function Directory() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Business Directory — Browse by Category & District | BanglaHQ</title>
+        <meta name="description" content="Browse Bangladesh's largest business directory. Filter by category, division, and district. Find IT companies, restaurants, garments, healthcare and more." />
+        <link rel="canonical" href="https://banglahq.com/directory" />
+        <meta property="og:title" content="Business Directory | BanglaHQ" />
+        <meta property="og:description" content="Browse Bangladesh's largest business directory by category and district." />
+        <meta property="og:url" content="https://banglahq.com/directory" />
+      </Helmet>
       {/* Header */}
       <div className="bg-card border-b border-border py-8">
         <div className="container mx-auto px-4">

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { useLanguage } from "@/lib/language-context";
 import { Button } from "@/components/ui/button";
 import { Search, MapPin, ArrowRight, Zap, Globe, Shield, TrendingUp } from "lucide-react";
@@ -56,6 +57,22 @@ export default function Index() {
 
   return (
     <div>
+      <Helmet>
+        <title>BanglaHQ — Bangladesh's Business Directory | বাংলাদেশের ব্যবসার ডিরেক্টরি</title>
+        <meta name="description" content="Find verified Bangladeshi businesses by category and district. 8M+ businesses listed. IT, restaurants, healthcare, garments, education — in Bengali and English." />
+        <link rel="canonical" href="https://banglahq.com/" />
+        <meta property="og:title" content="BanglaHQ — Bangladesh's Business Directory" />
+        <meta property="og:description" content="Find verified Bangladeshi businesses by category and district. 8M+ businesses listed." />
+        <meta property="og:url" content="https://banglahq.com/" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "BanglaHQ",
+          "url": "https://banglahq.com",
+          "description": "Bangladesh's Official Business Directory",
+          "sameAs": []
+        })}</script>
+      </Helmet>
       {/* HERO */}
       <section className="relative grid-pattern py-16 md:py-24 overflow-hidden">
         <div className="container mx-auto px-4 text-center relative z-10">

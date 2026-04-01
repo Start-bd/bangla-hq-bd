@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { useLanguage } from "@/lib/language-context";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, Star } from "lucide-react";
@@ -81,6 +82,14 @@ export default function Pricing() {
 
   return (
     <div className="min-h-screen bg-background py-16">
+      <Helmet>
+        <title>Pricing Plans — BanglaHQ Business Profiles</title>
+        <meta name="description" content="Free, Pro, and Verified plans for Bangladeshi businesses. Get a professional profile, verified badge, and priority search placement on BanglaHQ." />
+        <link rel="canonical" href="https://banglahq.com/pricing" />
+        <meta property="og:title" content="Pricing Plans | BanglaHQ" />
+        <meta property="og:description" content="Free, Pro, and Verified plans for Bangladeshi businesses on BanglaHQ." />
+        <meta property="og:url" content="https://banglahq.com/pricing" />
+      </Helmet>
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h1 className="font-heading font-bold text-3xl md:text-4xl text-foreground">
