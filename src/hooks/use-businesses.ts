@@ -54,7 +54,10 @@ export function useBusinesses(filters?: {
       if (filters?.featured) query = query.eq("is_featured", true);
       if (filters?.startup) query = query.eq("is_startup", true);
       if (filters?.search) {
-        query = query.or(`name_en.ilike.%${filters.search}%,name_bn.ilike.%${filters.search}%`);
+        const sanitized = filters.search.replace(/[%_\\,()]/g, "");
+        if (sanitized.length > 0 && sanitized.length <= 100) {
+          query = query.or(`name_en.ilike.%${sanitized}%,name_bn.ilike.%${sanitized}%`);
+        }
       }
       if (filters?.limit) query = query.limit(filters.limit);
 
