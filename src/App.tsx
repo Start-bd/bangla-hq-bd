@@ -5,8 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/lib/language-context";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import PublicLayout from "@/components/PublicLayout";
 import Index from "./pages/Index";
 import Directory from "./pages/Directory";
 import BusinessProfile from "./pages/BusinessProfile";
@@ -32,25 +31,19 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="*" element={
-                <>
-                  <Navbar />
-                  <Routes>
-                    <Route path="/" element={<Index />} />
-                    <Route path="/directory" element={<Directory />} />
-                    <Route path="/startups" element={<Startups />} />
-                    <Route path="/pricing" element={<Pricing />} />
-                    <Route path="/tools" element={<Tools />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/auth/login" element={<AuthLogin />} />
-                    <Route path="/auth/signup" element={<AuthSignup />} />
-                    <Route path="/onboarding" element={<Onboarding />} />
-                    <Route path="/:slug" element={<BusinessProfile />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                  <Footer />
-                </>
-              } />
+              <Route element={<PublicLayout />}>
+                <Route path="/" element={<Index />} />
+                <Route path="/directory" element={<Directory />} />
+                <Route path="/startups" element={<Startups />} />
+                <Route path="/pricing" element={<Pricing />} />
+                <Route path="/tools" element={<Tools />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/auth/login" element={<AuthLogin />} />
+                <Route path="/auth/signup" element={<AuthSignup />} />
+                <Route path="/onboarding" element={<Onboarding />} />
+                <Route path="/:slug" element={<BusinessProfile />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
             </Routes>
           </BrowserRouter>
         </TooltipProvider>
