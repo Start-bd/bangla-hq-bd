@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://banglahq.com/sitemap.xml
+Sitemap: https://vwtfwtkyeoiuxqxeewgz.supabase.co/functions/v1/sitemap
