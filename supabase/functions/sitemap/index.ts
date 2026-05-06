@@ -10,7 +10,7 @@ Deno.serve(async () => {
 
   const { data: businesses } = await supabase
     .from("businesses")
-    .select("slug, updated_at, name, logo_url, cover_url")
+    .select("slug, updated_at, name_en, logo_url, cover_url")
     .eq("status", "active")
     .order("updated_at", { ascending: false });
 
@@ -44,7 +44,7 @@ Deno.serve(async () => {
       .map(
         (u) => `    <image:image>
       <image:loc>${escape(u)}</image:loc>
-      <image:title>${escape(b.name ?? b.slug)}</image:title>
+      <image:title>${escape(b.name_en ?? b.slug)}</image:title>
     </image:image>`
       )
       .join("\n");
