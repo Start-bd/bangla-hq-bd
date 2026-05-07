@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import GoogleSignInButton from "@/components/GoogleSignInButton";
 
 export default function AuthLogin() {
   const { t } = useLanguage();
@@ -72,6 +73,11 @@ export default function AuthLogin() {
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? t("Logging in...", "লগইন হচ্ছে...") : t("Log In", "লগইন করুন")}
           </Button>
+          <div className="relative py-2">
+            <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-border" /></div>
+            <div className="relative flex justify-center text-xs uppercase"><span className="bg-card px-2 text-muted-foreground font-ui">{t("or", "অথবা")}</span></div>
+          </div>
+          <GoogleSignInButton />
         </form>
 
         <p className="text-center text-sm text-muted-foreground font-ui">
