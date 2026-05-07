@@ -61,10 +61,9 @@ Deno.serve(async () => {
 ${[...staticUrls, ...bizUrls].join("\n")}
 </urlset>`;
 
-  return new Response(xml, {
-    headers: {
-      "Content-Type": "application/xml; charset=utf-8",
-      "Cache-Control": "public, max-age=3600",
-    },
-  });
+  const headers = new Headers();
+  headers.set("Content-Type", "application/xml; charset=utf-8");
+  headers.set("Cache-Control", "public, max-age=3600");
+  headers.set("X-Content-Type-Options", "nosniff");
+  return new Response(xml, { status: 200, headers });
 });
