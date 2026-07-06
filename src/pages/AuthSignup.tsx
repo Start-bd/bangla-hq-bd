@@ -47,6 +47,11 @@ export default function AuthSignup() {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <Helmet>
         <title>{t("Sign Up — BanglaHQ", "সাইন আপ — BanglaHQ")}</title>
+        <meta name="description" content="Create a free BanglaHQ account to list your Bangladeshi business, reach new customers, and join the country's largest business directory." />
+        <meta property="og:title" content="Sign Up — BanglaHQ" />
+        <meta property="og:description" content="Create a free account and list your Bangladeshi business on BanglaHQ." />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href="https://banglahq.com/auth/signup" />
       </Helmet>
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">

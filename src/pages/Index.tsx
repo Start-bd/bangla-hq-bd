@@ -58,12 +58,13 @@ export default function Index() {
   return (
     <div>
       <Helmet>
-        <title>BanglaHQ — Bangladesh's Business Directory | বাংলাদেশের ব্যবসার ডিরেক্টরি</title>
+        <title>BanglaHQ — Bangladesh Business Directory</title>
         <meta name="description" content="Find verified Bangladeshi businesses by category and district. 8M+ businesses listed. IT, restaurants, healthcare, garments, education — in Bengali and English." />
         <link rel="canonical" href="https://banglahq.com/" />
-        <meta property="og:title" content="BanglaHQ — Bangladesh's Business Directory" />
+        <meta property="og:title" content="BanglaHQ — Bangladesh Business Directory" />
         <meta property="og:description" content="Find verified Bangladeshi businesses by category and district. 8M+ businesses listed." />
         <meta property="og:url" content="https://banglahq.com/" />
+        <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",

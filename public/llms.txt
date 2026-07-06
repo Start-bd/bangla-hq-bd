@@ -1,0 +1,18 @@
+# BanglaHQ
+
+> Bangladesh's official bilingual business directory — discover verified companies, startups, and service providers across all 64 districts in Bengali and English.
+
+BanglaHQ is the definitive digital front door for Bangladesh's businesses. We combine verified business profiles, category and district browsing, startup discovery, and B2B connections in one national platform.
+
+## Pages
+
+- [Home](/): Search and discover verified Bangladeshi businesses.
+- [Business Directory](/directory): Browse businesses by category, division, and district.
+- [Startups](/startups): Emerging Bangladeshi startups in tech, fintech, AI, and more.
+- [Pricing](/pricing): Free, Pro, and Verified plans for business profiles.
+- [Business Tools](/tools): Made-in-Bangladesh SaaS and global tools for operators.
+- [About](/about): The BanglaHQ mission and the StartBD ecosystem.
+
+## Optional
+
+- [Add Your Business](/onboarding): Create a free listing.

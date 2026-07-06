@@ -145,6 +145,11 @@ export default function Onboarding() {
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
         <title>{t("Add Your Business — BanglaHQ", "আপনার ব্যবসা যোগ করুন — BanglaHQ")}</title>
+        <meta name="description" content="Add your Bangladeshi business to BanglaHQ in minutes — pick a category, choose your district, and publish a bilingual profile for free." />
+        <meta property="og:title" content="Add Your Business — BanglaHQ" />
+        <meta property="og:description" content="List your Bangladeshi business on BanglaHQ in minutes — bilingual, verified, and free." />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href="https://banglahq.com/onboarding" />
       </Helmet>
 
       {/* Progress bar */}

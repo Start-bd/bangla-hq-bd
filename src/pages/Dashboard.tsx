@@ -47,7 +47,11 @@ export default function Dashboard() {
   if (businesses.length === 0) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-background gap-4 px-4">
-        <Helmet><title>{t("Dashboard — BanglaHQ", "ড্যাশবোর্ড — BanglaHQ")}</title></Helmet>
+        <Helmet>
+          <title>{t("Dashboard — BanglaHQ", "ড্যাশবোর্ড — BanglaHQ")}</title>
+          <meta name="description" content="Manage your BanglaHQ business profiles, track profile views, respond to reviews, and upgrade your plan." />
+          <meta name="robots" content="noindex" />
+        </Helmet>
         <Building2 size={48} className="text-muted-foreground" />
         <h1 className="font-heading text-2xl font-bold text-foreground">{t("No businesses yet", "এখনো কোনো ব্যবসা নেই")}</h1>
         <p className="text-muted-foreground font-ui text-center max-w-md">
@@ -72,7 +76,11 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen flex bg-background">
-      <Helmet><title>{t("Dashboard — BanglaHQ", "ড্যাশবোর্ড — BanglaHQ")}</title></Helmet>
+      <Helmet>
+        <title>{t("Dashboard — BanglaHQ", "ড্যাশবোর্ড — BanglaHQ")}</title>
+        <meta name="description" content="Manage your BanglaHQ business profiles, track profile views, respond to reviews, and upgrade your plan." />
+        <meta name="robots" content="noindex" />
+      </Helmet>
 
       {/* Sidebar */}
       <aside className={`${sidebarOpen ? "fixed inset-0 z-50 bg-card" : "hidden"} md:flex md:static md:w-64 flex-col border-r border-border bg-card`}>
