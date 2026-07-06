@@ -35,6 +35,11 @@ export default function AuthLogin() {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <Helmet>
         <title>{t("Login — BanglaHQ", "লগইন — BanglaHQ")}</title>
+        <meta name="description" content="Log in to your BanglaHQ account to manage your business profile, respond to reviews, and view analytics." />
+        <meta property="og:title" content="Login — BanglaHQ" />
+        <meta property="og:description" content="Log in to manage your Bangladeshi business profile on BanglaHQ." />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href="https://banglahq.com/auth/login" />
       </Helmet>
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">

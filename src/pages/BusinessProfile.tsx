@@ -50,7 +50,7 @@ function BusinessJsonLd({ business }: { business: any }) {
       <meta name="description" content={`${business.description_en.slice(0, 155)}...`} />
       <meta property="og:title" content={`${business.name_en} | BanglaHQ`} />
       <meta property="og:description" content={business.tagline_en || business.description_en.slice(0, 155)} />
-      <meta property="og:type" content="business.business" />
+      <meta property="og:type" content="website" />
       <meta property="og:url" content={`https://banglahq.com/${business.slug}`} />
       <link rel="canonical" href={`https://banglahq.com/${business.slug}`} />
       <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
