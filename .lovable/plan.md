@@ -1,77 +1,56 @@
+# Prerendering and bilingual search rollout
 
+## Goal
+Make BanglaHQ’s English and Bangla public pages independently crawlable, reduce the initial JavaScript download, publish accurate sitemaps, and complete the Search Console steps that the available APIs support.
 
-# SEO Audit & Fixes — BanglaHQ
+## Implementation
 
-## Issues Found
+### 1. Add stable English and Bangla URL structures
+- Keep existing English URLs unchanged: `/`, `/directory`, `/startups`, `/pricing`, `/tools`, `/about`, and `/{business-slug}`.
+- Add equivalent Bangla URLs: `/bn/`, `/bn/directory`, `/bn/startups`, `/bn/pricing`, `/bn/tools`, `/bn/about`, and `/bn/{business-slug}`.
+- Make the URL prefix determine the initial language so `/bn/...` always renders Bangla on first load and English URLs render English.
+- Update the language control and all public internal links to switch or preserve the matching localized URL instead of only changing temporary browser state.
+- Keep account, onboarding, dashboard, and missing-page URLs out of both sitemaps.
 
-| # | Issue | Severity |
-|---|-------|----------|
-| 1 | **No sitemap.xml** — Search engines can't discover all 49 business profile pages | Critical |
-| 2 | **robots.txt missing Sitemap directive** | Critical |
-| 3 | **No per-page `<Helmet>` on 5 pages** — Index, Directory, Startups, Pricing, Tools, About all use the static `index.html` title/description instead of unique meta | High |
-| 4 | **Missing OG image** — No `og:image` on any page; social shares show no preview | High |
-| 5 | **SPA rendering** — All content is client-rendered; search engines with weak JS support won't index business pages | Medium (future) |
-| 6 | **No `hreflang` tags** for Bengali/English alternate content | Low |
-| 7 | **No Organization JSON-LD** on the homepage | Medium |
+### 2. Make metadata language-aware
+- Centralize public-page SEO metadata to avoid conflicting tags.
+- Give every indexable page a localized title and description, self-referencing canonical URL, `og:url`, `og:locale`, and reciprocal `hreflang` links for `en`, `bn-BD`, and `x-default`.
+- Localize business-profile metadata and structured data from each profile’s English/Bangla fields while omitting empty optional values.
+- Correct the base HTML head structure and retain Google Analytics and Search Console verification tags.
 
-## Plan
+### 3. Split the client bundle
+- Lazy-load public pages, account pages, and dashboard routes so visitors download the shared shell plus only the code needed for the current page.
+- Add a stable loading fallback without changing the existing visual design or user flows.
+- Keep shared navigation, language handling, notifications, and data caching in the client shell.
 
-### 1. Dynamic Sitemap via Edge Function
+### 4. Prerender crawlable pages during production builds
+- Add a post-build prerender script using the project’s existing browser tooling.
+- Render all indexable English and Bangla static routes plus every active business profile into route-specific HTML files after the production bundle is created.
+- Wait for business data and route metadata before saving each page, while preserving the JavaScript client shell for normal interaction after load.
+- Fail the production build when a required public route cannot be rendered, rather than silently shipping blank or incomplete SEO pages.
+- Leave authenticated/private pages as client-rendered routes.
 
-Create a backend function `sitemap` that queries all business slugs from the database and returns a proper XML sitemap with all static pages + every business profile URL.
+### 5. Generate separate English and Bangla sitemaps
+- Generate `/sitemap.xml` with English static pages and active English business-profile URLs.
+- Generate `/sitemap-bn.xml` with the equivalent `/bn/` URLs.
+- Include correct `lastmod` values and available business images, and add reciprocal language alternates within sitemap entries where supported.
+- Update `robots.txt` to advertise both sitemap URLs.
+- Align the build-time and live sitemap generators so their route lists, language URLs, XML headers, and escaping rules cannot drift.
 
-```text
-/sitemap.xml → edge function returns:
-  - https://banglahq.com/
-  - https://banglahq.com/directory
-  - https://banglahq.com/startups
-  - https://banglahq.com/pricing
-  - https://banglahq.com/tools
-  - https://banglahq.com/about
-  - https://banglahq.com/{slug} × 49 businesses
-```
+### 6. Validate and release
+- Verify representative desktop and mobile pages with JavaScript disabled to confirm useful content, headings, metadata, links, and business data exist in the delivered HTML.
+- Verify route navigation and language switching still work with JavaScript enabled.
+- Check the production output for route-specific HTML and smaller initial route bundles.
+- Publish the completed changes after approval.
 
-### 2. Update robots.txt
+### 7. Complete Search Console actions
+- After the new files are live, list verified Search Console properties and use the exact verified property covering `https://banglahq.com/`.
+- Submit both `https://banglahq.com/sitemap.xml` and `https://banglahq.com/sitemap-bn.xml`, then read back their submission status.
+- Inspect the homepage, directory, Bangla homepage/directory, and a prioritized sample of active business profiles to establish their indexed/crawl state.
+- Prepare the exact profile URL list that still needs attention. Google’s API cannot request indexing or run a live URL test, so the final “Request indexing” clicks must be completed manually in Search Console’s URL Inspection screen.
 
-Add `Sitemap: https://banglahq.com/sitemap.xml` directive.
-
-### 3. Add `<Helmet>` to All Pages Missing It
-
-Add unique `<title>`, `<meta description>`, `<link canonical>`, and `og:` tags to:
-- **Index.tsx** — "BanglaHQ — Bangladesh's Business Directory..."
-- **Directory.tsx** — "Business Directory — Browse by Category & District | BanglaHQ"
-- **Startups.tsx** — "Bangladesh Startups — Emerging Tech & Innovation | BanglaHQ"
-- **Pricing.tsx** — "Pricing Plans — BanglaHQ Business Profiles"
-- **Tools.tsx** — "Business Tools — Made in Bangladesh | BanglaHQ"
-- **About.tsx** — "About BanglaHQ — Bangladesh's Official Business Directory"
-
-### 4. Add Organization JSON-LD to Homepage
-
-Inject structured data on Index.tsx:
-```json
-{
-  "@type": "Organization",
-  "name": "BanglaHQ",
-  "url": "https://banglahq.com",
-  "description": "Bangladesh's Official Business Directory"
-}
-```
-
-### 5. Add Default OG Image
-
-Reference a default share image (`/og-banglahq.png`) in `index.html` and override per-page where needed.
-
-## Files Changed
-
-| File | Change |
-|------|--------|
-| `supabase/functions/sitemap/index.ts` | New edge function generating XML sitemap |
-| `public/robots.txt` | Add Sitemap directive |
-| `index.html` | Add default `og:image` |
-| `src/pages/Index.tsx` | Add Helmet + Organization JSON-LD |
-| `src/pages/Directory.tsx` | Add Helmet with unique meta |
-| `src/pages/Startups.tsx` | Add Helmet with unique meta |
-| `src/pages/Pricing.tsx` | Add Helmet with unique meta |
-| `src/pages/Tools.tsx` | Add Helmet with unique meta |
-| `src/pages/About.tsx` | Add Helmet with unique meta |
-
+## Technical notes
+- The app remains React + Vite; no framework migration or backend replacement is required.
+- Prerendering produces crawler-readable HTML while the existing app remains interactive in the browser.
+- Existing English URLs keep their rankings and backlinks; Bangla receives dedicated URLs rather than replacing them.
+- Search Console and sitemap submission happen only after publication confirms the generated files are live.
