@@ -17,6 +17,9 @@ const LanguageContext = createContext<LanguageContextType>({
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [lang, setLang] = useState<Language>("en");
   const toggleLang = useCallback(() => setLang((l) => (l === "en" ? "bn" : "en")), []);
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
   const t = useCallback((en: string, bn: string) => (lang === "en" ? en : bn), [lang]);
   return <LanguageContext.Provider value={{ lang, toggleLang, t }}>{children}</LanguageContext.Provider>;
 };
