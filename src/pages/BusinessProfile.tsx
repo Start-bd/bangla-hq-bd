@@ -40,14 +40,21 @@ function BusinessJsonLd({ business }: { business: any }) {
         worstRating: 1,
       },
     }),
-    ...(business.logo_url && { image: business.logo_url }),
-    ...(business.website_url && { sameAs: [business.website_url, business.facebook_url].filter(Boolean) }),
+    ...(business.logo_url?.trim() && { image: business.logo_url }),
+    ...((business.website_url || business.facebook_url) && {
+      sameAs: [business.website_url, business.facebook_url].filter(Boolean),
+    }),
   };
+
+  const description =
+    business.description_en.length > 155
+      ? `${business.description_en.slice(0, 155).replace(/\s+\S*$/, "")}…`
+      : business.description_en;
 
   return (
     <Helmet>
       <title>{`${business.name_en} — ${business.name_bn} | BanglaHQ`}</title>
-      <meta name="description" content={`${business.description_en.slice(0, 155)}...`} />
+      <meta name="description" content={description} />
       <meta property="og:title" content={`${business.name_en} | BanglaHQ`} />
       <meta property="og:description" content={business.tagline_en || business.description_en.slice(0, 155)} />
       <meta property="og:type" content="website" />
