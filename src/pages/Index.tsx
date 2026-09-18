@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { useLanguage } from "@/lib/language-context";
+import PublicSeo from "@/components/PublicSeo";
 import { Button } from "@/components/ui/button";
 import { Search, MapPin, ArrowRight, Zap, Globe, Shield, TrendingUp } from "lucide-react";
 import BusinessCard from "@/components/BusinessCard";
@@ -43,7 +43,7 @@ const quickSearchChips = [
 ];
 
 export default function Index() {
-  const { t } = useLanguage();
+  const { t, localizePath } = useLanguage();
   const { data: featuredBusinesses = [] } = useBusinesses({ featured: true, limit: 6 });
   const { data: startups = [] } = useBusinesses({ startup: true, limit: 3 });
   const { data: stats } = useBusinessStats();
@@ -57,23 +57,21 @@ export default function Index() {
 
   return (
     <div>
-      <Helmet>
-        <title>BanglaHQ — Bangladesh Business Directory</title>
-        <meta name="description" content="Find verified Bangladeshi businesses by category and district. 8M+ businesses listed. IT, restaurants, healthcare, garments, education — in Bengali and English." />
-        <link rel="canonical" href="https://banglahq.com/" />
-        <meta property="og:title" content="BanglaHQ — Bangladesh Business Directory" />
-        <meta property="og:description" content="Find verified Bangladeshi businesses by category and district. 8M+ businesses listed." />
-        <meta property="og:url" content="https://banglahq.com/" />
-        <meta property="og:type" content="website" />
-        <script type="application/ld+json">{JSON.stringify({
+      <PublicSeo
+        path="/"
+        titleEn="BanglaHQ — Bangladesh Business Directory"
+        titleBn="BanglaHQ — বাংলাদেশের ব্যবসার ডিরেক্টরি"
+        descriptionEn="Find verified Bangladeshi businesses by category and district. Discover IT, restaurants, healthcare, garments, education and more in English and Bangla."
+        descriptionBn="ক্যাটাগরি ও জেলা অনুযায়ী যাচাইকৃত বাংলাদেশি ব্যবসা খুঁজুন। আইটি, রেস্তোরাঁ, স্বাস্থ্যসেবা, পোশাক, শিক্ষা এবং আরও অনেক প্রতিষ্ঠান আবিষ্কার করুন।"
+        jsonLd={{
           "@context": "https://schema.org",
           "@type": "Organization",
           "name": "BanglaHQ",
           "url": "https://banglahq.com",
           "description": "Bangladesh's Official Business Directory",
           "sameAs": []
-        })}</script>
-      </Helmet>
+        }}
+      />
       {/* HERO */}
       <section className="relative grid-pattern py-16 md:py-24 overflow-hidden">
         <div className="container mx-auto px-4 text-center relative z-10">
@@ -123,7 +121,7 @@ export default function Index() {
               {quickSearchChips.map((chip) => (
                 <Link
                   key={chip.en}
-                  to={`/directory`}
+                  to={localizePath("/directory")}
                   className="px-3 py-1.5 rounded-full text-xs font-ui bg-card border border-border text-muted-foreground hover:border-primary hover:text-primary transition-colors"
                 >
                   {t(chip.en, chip.bn)}
@@ -165,7 +163,7 @@ export default function Index() {
             {categories.map((cat) => (
               <Link
                 key={cat.slug}
-                to={`/directory`}
+                to={localizePath("/directory")}
                 className="flex flex-col items-center gap-2 p-4 rounded-lg bg-card border border-border hover:border-primary hover:shadow-card transition-all group text-center"
               >
                 <span className="text-3xl">{cat.icon}</span>
@@ -194,7 +192,7 @@ export default function Index() {
               </p>
             </div>
             <Button variant="amber-outline" size="sm" asChild>
-              <Link to="/directory">{t("View All", "সব দেখুন")} <ArrowRight size={14} /></Link>
+              <Link to={localizePath("/directory")}>{t("View All", "সব দেখুন")} <ArrowRight size={14} /></Link>
             </Button>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -220,7 +218,7 @@ export default function Index() {
             {divisions.map((div) => (
               <Link
                 key={div.name_en}
-                to="/directory"
+                to={localizePath("/directory")}
                 className="p-5 rounded-lg bg-card border border-border hover:border-secondary hover:shadow-card transition-all group text-center"
               >
                 <p className="font-bengali font-semibold text-lg text-foreground group-hover:text-secondary transition-colors">
@@ -248,7 +246,7 @@ export default function Index() {
               </p>
             </div>
             <Button variant="amber-outline" size="sm" asChild>
-              <Link to="/startups">{t("See All", "সব দেখুন")} <ArrowRight size={14} /></Link>
+              <Link to={localizePath("/startups")}>{t("See All", "সব দেখুন")} <ArrowRight size={14} /></Link>
             </Button>
           </div>
           <div className="grid md:grid-cols-3 gap-4">

@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, LayoutDashboard } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
-const BanglaHQLogo = () => (
-  <Link to="/" className="flex items-center gap-1 group">
+const BanglaHQLogo = ({ to }: { to: string }) => (
+  <Link to={to} className="flex items-center gap-1 group">
     <span className="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-primary font-display text-primary-foreground text-xl leading-none">B</span>
     <span className="font-heading font-bold text-foreground text-lg tracking-tight">angla</span>
     <span className="font-display text-primary text-lg">HQ</span>
@@ -23,7 +23,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const { lang, toggleLang, t } = useLanguage();
+  const { lang, toggleLang, t, localizePath } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
@@ -43,13 +43,13 @@ export default function Navbar() {
       <div className="h-1 bg-gradient-to-r from-primary via-secondary to-primary" />
       <nav className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border">
         <div className="container mx-auto flex items-center justify-between h-16 px-4">
-          <BanglaHQLogo />
+          <BanglaHQLogo to={localizePath("/")} />
 
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
-                to={link.to}
+                to={localizePath(link.to)}
                 className={`px-3 py-2 rounded-md text-sm font-ui font-medium transition-colors ${
                   location.pathname.startsWith(link.to)
                     ? "text-primary bg-primary/5"
@@ -64,6 +64,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-2">
             <button
               onClick={toggleLang}
+              aria-label={lang === "en" ? "বাংলায় দেখুন" : "View in English"}
               className="px-3 py-1.5 rounded-md text-xs font-ui font-medium border border-border hover:bg-accent transition-colors"
             >
               {lang === "en" ? "বাং" : "EN"}
@@ -93,7 +94,7 @@ export default function Navbar() {
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
-                  to={link.to}
+                  to={localizePath(link.to)}
                   onClick={() => setMobileOpen(false)}
                   className="block px-4 py-3 rounded-lg text-base font-ui font-medium hover:bg-accent transition-colors"
                 >
@@ -102,7 +103,7 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="flex items-center gap-2 pt-2 border-t border-border mt-2">
-                <button onClick={toggleLang} className="px-3 py-2 rounded-md text-sm font-ui border border-border">
+                <button onClick={toggleLang} aria-label={lang === "en" ? "বাংলায় দেখুন" : "View in English"} className="px-3 py-2 rounded-md text-sm font-ui border border-border">
                   {lang === "en" ? "বাংলা" : "English"}
                 </button>
                 {isLoggedIn ? (

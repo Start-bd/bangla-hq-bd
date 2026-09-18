@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import type { Business } from "@/lib/mock-data";
 
 export default function BusinessCard({ business }: { business: Business }) {
-  const { t } = useLanguage();
+  const { t, localizePath } = useLanguage();
   const initials = business.name_en.slice(0, 2).toUpperCase();
 
   return (
     <Link
-      to={`/${business.slug}`}
+      to={localizePath(`/${business.slug}`)}
       className="block bg-card rounded-lg border border-border p-5 transition-all duration-300 hover:shadow-card-hover group"
     >
       <div className="flex gap-4">

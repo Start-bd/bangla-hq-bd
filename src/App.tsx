@@ -1,34 +1,36 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/lib/language-context";
 import PublicLayout from "@/components/PublicLayout";
-import Index from "./pages/Index";
-import Directory from "./pages/Directory";
-import BusinessProfile from "./pages/BusinessProfile";
-import Startups from "./pages/Startups";
-import Pricing from "./pages/Pricing";
-import Tools from "./pages/Tools";
-import About from "./pages/About";
-import AuthLogin from "./pages/AuthLogin";
-import AuthSignup from "./pages/AuthSignup";
-import Onboarding from "./pages/Onboarding";
-import Dashboard from "./pages/Dashboard";
-import NotFound from "./pages/NotFound";
+const Index = lazy(() => import("./pages/Index"));
+const Directory = lazy(() => import("./pages/Directory"));
+const BusinessProfile = lazy(() => import("./pages/BusinessProfile"));
+const Startups = lazy(() => import("./pages/Startups"));
+const Pricing = lazy(() => import("./pages/Pricing"));
+const Tools = lazy(() => import("./pages/Tools"));
+const About = lazy(() => import("./pages/About"));
+const AuthLogin = lazy(() => import("./pages/AuthLogin"));
+const AuthSignup = lazy(() => import("./pages/AuthSignup"));
+const Onboarding = lazy(() => import("./pages/Onboarding"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <HelmetProvider>
-      <LanguageProvider>
-        <TooltipProvider>
+      <TooltipProvider>
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <LanguageProvider>
+            <Suspense fallback={<div className="min-h-screen bg-background" aria-busy="true" />}>
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route element={<PublicLayout />}>
@@ -42,12 +44,20 @@ const App = () => (
                 <Route path="/auth/signup" element={<AuthSignup />} />
                 <Route path="/onboarding" element={<Onboarding />} />
                 <Route path="/:slug" element={<BusinessProfile />} />
+                <Route path="/bn" element={<Index />} />
+                <Route path="/bn/directory" element={<Directory />} />
+                <Route path="/bn/startups" element={<Startups />} />
+                <Route path="/bn/pricing" element={<Pricing />} />
+                <Route path="/bn/tools" element={<Tools />} />
+                <Route path="/bn/about" element={<About />} />
+                <Route path="/bn/:slug" element={<BusinessProfile />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>
+            </Suspense>
+            </LanguageProvider>
           </BrowserRouter>
         </TooltipProvider>
-      </LanguageProvider>
     </HelmetProvider>
   </QueryClientProvider>
 );

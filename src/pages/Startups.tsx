@@ -1,5 +1,5 @@
 import { useLanguage } from "@/lib/language-context";
-import { Helmet } from "react-helmet-async";
+import PublicSeo from "@/components/PublicSeo";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import BusinessCard from "@/components/BusinessCard";
@@ -7,19 +7,18 @@ import { useBusinesses } from "@/hooks/use-businesses";
 import { Zap, ArrowRight } from "lucide-react";
 
 export default function Startups() {
-  const { t } = useLanguage();
+  const { t, localizePath } = useLanguage();
   const { data: startups = [], isLoading } = useBusinesses({ startup: true });
 
   return (
     <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>Bangladesh Startups — Emerging Tech & Innovation | BanglaHQ</title>
-        <meta name="description" content="Discover emerging Bangladeshi startups in technology, AI, fintech, and more. The definitive startup directory for Bangladesh." />
-        <link rel="canonical" href="https://banglahq.com/startups" />
-        <meta property="og:title" content="Bangladesh Startups | BanglaHQ" />
-        <meta property="og:description" content="Discover emerging Bangladeshi startups in technology, AI, fintech, and more." />
-        <meta property="og:url" content="https://banglahq.com/startups" />
-      </Helmet>
+      <PublicSeo
+        path="/startups"
+        titleEn="Bangladesh Startups & Innovation | BanglaHQ"
+        titleBn="বাংলাদেশের স্টার্টআপ ও উদ্ভাবন | BanglaHQ"
+        descriptionEn="Discover active Bangladeshi startups in technology, AI, fintech and more. Explore founders and emerging companies in Bangladesh's startup ecosystem."
+        descriptionBn="প্রযুক্তি, এআই, ফিনটেকসহ বিভিন্ন খাতের সক্রিয় বাংলাদেশি স্টার্টআপ আবিষ্কার করুন। বাংলাদেশের উদীয়মান কোম্পানি ও প্রতিষ্ঠাতাদের খুঁজুন।"
+      />
       <div className="bg-card border-b border-border py-12">
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
@@ -53,7 +52,7 @@ export default function Startups() {
         )}
         <div className="text-center mt-12">
           <Button variant="amber" asChild>
-            <Link to="/onboarding">{t("Submit Your Startup", "আপনার স্টার্টআপ জমা দিন")} <ArrowRight size={14} /></Link>
+            <Link to={localizePath("/onboarding")}>{t("Submit Your Startup", "আপনার স্টার্টআপ জমা দিন")} <ArrowRight size={14} /></Link>
           </Button>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Helmet } from "react-helmet-async";
 import { useLanguage } from "@/lib/language-context";
+import PublicSeo from "@/components/PublicSeo";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BusinessCard from "@/components/BusinessCard";
@@ -22,14 +22,13 @@ export default function Directory() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>Business Directory — Browse by Category & District | BanglaHQ</title>
-        <meta name="description" content="Browse Bangladesh's largest business directory. Filter by category, division, and district. Find IT companies, restaurants, garments, healthcare and more." />
-        <link rel="canonical" href="https://banglahq.com/directory" />
-        <meta property="og:title" content="Business Directory | BanglaHQ" />
-        <meta property="og:description" content="Browse Bangladesh's largest business directory by category and district." />
-        <meta property="og:url" content="https://banglahq.com/directory" />
-      </Helmet>
+      <PublicSeo
+        path="/directory"
+        titleEn="Bangladesh Business Directory | BanglaHQ"
+        titleBn="বাংলাদেশ ব্যবসার ডিরেক্টরি | BanglaHQ"
+        descriptionEn="Browse active Bangladeshi businesses by category, division, and district. Find IT companies, restaurants, garments, healthcare providers and more."
+        descriptionBn="ক্যাটাগরি, বিভাগ ও জেলা অনুযায়ী সক্রিয় বাংলাদেশি ব্যবসা ব্রাউজ করুন। আইটি, রেস্তোরাঁ, পোশাক, স্বাস্থ্যসেবা এবং আরও প্রতিষ্ঠান খুঁজুন।"
+      />
       {/* Header */}
       <div className="bg-card border-b border-border py-8">
         <div className="container mx-auto px-4">
