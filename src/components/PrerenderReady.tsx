@@ -10,7 +10,9 @@ export default function PrerenderReady() {
     } else {
       delete document.documentElement.dataset.prerenderReady;
     }
-    return () => delete document.documentElement.dataset.prerenderReady;
+    return () => {
+      delete document.documentElement.dataset.prerenderReady;
+    };
   }, [fetching]);
 
   return null;

@@ -42,7 +42,7 @@ const footerLinks = {
 };
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { t, localizePath } = useLanguage();
 
   return (
     <footer className="bg-muted/50 border-t border-border">
@@ -80,7 +80,7 @@ export default function Footer() {
                       {"external" in link && link.external ? (
                         <a href={link.to} target="_blank" rel="noopener noreferrer">{content}</a>
                       ) : (
-                        <Link to={link.to}>{content}</Link>
+                        <Link to={localizePath(link.to)}>{content}</Link>
                       )}
                     </li>
                   );
