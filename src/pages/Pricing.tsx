@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { useLanguage } from "@/lib/language-context";
+import PublicSeo from "@/components/PublicSeo";
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, Star } from "lucide-react";
 
@@ -82,13 +83,17 @@ export default function Pricing() {
 
   return (
     <div className="min-h-screen bg-background py-16">
+      <PublicSeo
+        path="/pricing"
+        titleEn="Pricing Plans — BanglaHQ Business Profiles"
+        titleBn="মূল্যের প্ল্যান — BanglaHQ ব্যবসার প্রোফাইল"
+        descriptionEn="Free, Pro, and Verified plans for Bangladeshi businesses. Get a professional profile, verified badge, and priority search placement on BanglaHQ."
+        descriptionBn="বাংলাদেশি ব্যবসার জন্য বিনামূল্যে, প্রো এবং যাচাইকৃত প্ল্যান। BanglaHQ-তে পেশাদার প্রোফাইল, যাচাইকৃত ব্যাজ এবং অগ্রাধিকার সার্চ প্লেসমেন্ট পান।"
+      />
       <Helmet>
-        <title>Pricing Plans — BanglaHQ Business Profiles</title>
-        <meta name="description" content="Free, Pro, and Verified plans for Bangladeshi businesses. Get a professional profile, verified badge, and priority search placement on BanglaHQ." />
-        <link rel="canonical" href="https://banglahq.com/pricing" />
-        <meta property="og:title" content="Pricing Plans | BanglaHQ" />
-        <meta property="og:description" content="Free, Pro, and Verified plans for Bangladeshi businesses on BanglaHQ." />
-        <meta property="og:url" content="https://banglahq.com/pricing" />
+        <link rel="alternate" hrefLang="en" href="https://banglahq.com/pricing" />
+        <link rel="alternate" hrefLang="bn-BD" href="https://banglahq.com/bn/pricing" />
+        <link rel="alternate" hrefLang="x-default" href="https://banglahq.com/pricing" />
       </Helmet>
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
@@ -124,7 +129,7 @@ export default function Pricing() {
                 <span className="text-sm text-muted-foreground font-ui ml-1">{t(plan.period_en, plan.period_bn)}</span>
               </div>
               <ul className="mt-6 space-y-3">
-                {(t(plan.features_en.join("|||"), plan.features_bn.join("|||"))).split("|||").map((f, i) => (
+                {(t(plan.features_en.join("|||\"), plan.features_bn.join("|||\"))).split("|||\").map((f, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm font-ui text-foreground">
                     <Check size={16} className="text-secondary flex-shrink-0 mt-0.5" />
                     {f}

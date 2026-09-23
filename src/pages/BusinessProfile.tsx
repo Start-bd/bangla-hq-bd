@@ -14,14 +14,23 @@ const tabs = [
   { id: "contact", en: "Contact", bn: "যোগাযোগ" },
 ];
 
-function BusinessJsonLd({ business }: { business: any }) {
+const SITE_URL = "https://banglahq.com";
+
+function BusinessJsonLd({ business, lang }: { business: any; lang: "en" | "bn" }) {
+  const enUrl = `${SITE_URL}/${business.slug}`;
+  const bnUrl = `${SITE_URL}/bn/${business.slug}`;
+
+  const name = lang === "bn" ? business.name_bn : business.name_en;
+  const description = lang === "bn" ? business.description_bn : business.description_en;
+  const tagline = lang === "bn" ? business.tagline_bn : business.tagline_en;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: business.name_en,
-    alternateName: business.name_bn,
-    description: business.description_en,
-    url: `https://banglahq.com/${business.slug}`,
+    name: name || name_en_fallback(business),
+    alternateName: business.name_bn || business.name_en,
+    description: description || "",
+    url: lang === "bn" ? bnUrl : enUrl,
     telephone: business.phone || undefined,
     email: business.email || undefined,
     foundingDate: business.founded_year ? String(business.founded_year) : undefined,
@@ -46,28 +55,42 @@ function BusinessJsonLd({ business }: { business: any }) {
     }),
   };
 
-  const description =
-    business.description_en.length > 155
-      ? `${business.description_en.slice(0, 155).replace(/\s+\S*$/, "")}…`
-      : business.description_en;
+  const descForMeta = description
+    ? (description.length > 155
+        ? `${description.slice(0, 155).replace(/\s+\S*$/, "")}…`
+        : description)
+    : "";
+
+  const ogDesc = tagline || descForMeta;
 
   return (
-    <Helmet>
-      <title>{`${business.name_en} — ${business.name_bn} | BanglaHQ`}</title>
-      <meta name="description" content={description} />
-      <meta property="og:title" content={`${business.name_en} | BanglaHQ`} />
-      <meta property="og:description" content={business.tagline_en || business.description_en.slice(0, 155)} />
+    <Helmet htmlAttributes={{ lang: lang === "bn" ? "bn-BD" : "en" }}>
+      <title>{`${name} | BanglaHQ`}</title>
+      <meta name="description" content={descForMeta} />
+      <link rel="canonical" href={lang === "bn" ? bnUrl : enUrl} />
+      <link rel="alternate" hrefLang="en" href={enUrl} />
+      <link rel="alternate" hrefLang="bn-BD" href={bnUrl} />
+      <link rel="alternate" hrefLang="x-default" href={enUrl} />
+      <meta property="og:title" content={`${name} | BanglaHQ`} />
+      <meta property="og:description" content={ogDesc} />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content={`https://banglahq.com/${business.slug}`} />
-      <link rel="canonical" href={`https://banglahq.com/${business.slug}`} />
+      <meta property="og:url" content={lang === "bn" ? bnUrl : enUrl} />
+      <meta property="og:locale" content={lang === "bn" ? "bn_BD" : "en_US"} />
+      <meta property="og:locale:alternate" content={lang === "bn" ? "en_US" : "bn_BD"} />
+      <meta name="twitter:title" content={`${name} | BanglaHQ`} />
+      <meta name="twitter:description" content={ogDesc} />
       <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
     </Helmet>
   );
 }
 
+function name_en_fallback(b: any) {
+  return b.name_en || "Business";
+}
+
 export default function BusinessProfile() {
   const { slug } = useParams();
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [activeTab, setActiveTab] = useState("about");
   const { data: business, isLoading } = useBusinessBySlug(slug);
   const { data: similarBusinesses = [] } = useBusinesses({
@@ -103,7 +126,7 @@ export default function BusinessProfile() {
   const initials = business.name_en.slice(0, 2).toUpperCase();
 
   const handleFacebookShare = () => {
-    const url = encodeURIComponent(`https://banglahq.com/${business.slug}`);
+    const url = encodeURIComponent(`${SITE_URL}/${business.slug}`);
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, "_blank", "width=600,height=400");
   };
 
@@ -116,7 +139,7 @@ export default function BusinessProfile() {
 
   return (
     <div className="min-h-screen bg-background">
-      <BusinessJsonLd business={business} />
+      <BusinessJsonLd business={business} lang={lang} />
 
       {/* Cover */}
       <div className="h-48 md:h-64 bg-gradient-to-r from-primary/80 to-primary/40 relative">
@@ -159,65 +182,72 @@ export default function BusinessProfile() {
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="text-center">
-                    <div className="flex items-center gap-1">
-                      <Star size={20} className="fill-primary text-primary" />
-                      <span className="font-display text-2xl text-primary">{business.rating_avg}</span>
+                    <div className="font-heading font-bold text-2xl text-foreground">
+                      {business.rating_avg.toFixed(1)}
                     </div>
-                    <p className="text-xs text-muted-foreground font-ui">{business.rating_count} {t("reviews", "রিভিউ")}</p>
+                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                      <Star size={14} className="fill-primary text-primary" />
+                      {business.rating_count} {t("reviews", "রিভিউ")}
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="font-heading font-bold text-2xl text-foreground">
+                      {business.view_count.toLocaleString()}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {t("views", "দর্শন")}
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-4 mt-4 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1"><Calendar size={14} /> {t("Founded", "প্রতিষ্ঠিত")} {business.founded_year}</span>
-                <span className="flex items-center gap-1"><Users size={14} /> {business.employee_range} {t("employees", "কর্মী")}</span>
-                <span className="flex items-center gap-1"><Building2 size={14} /> {t(business.tagline_en, business.tagline_bn)}</span>
-              </div>
-
-              {/* Contact buttons */}
-              <div className="flex flex-wrap gap-2 mt-4">
-                {business.phone && (
-                  <Button variant="amber" size="sm" asChild>
-                    <a href={`tel:${business.phone}`}><Phone size={14} /> {t("Call", "কল")}</a>
-                  </Button>
-                )}
-                {business.phone && (
-                  <Button variant="outline" size="sm" onClick={handleWhatsAppContact} className="text-green-600 border-green-600/30 hover:bg-green-50">
-                    💬 WhatsApp
-                  </Button>
-                )}
-                {business.email && (
-                  <Button variant="outline" size="sm" asChild>
-                    <a href={`mailto:${business.email}`}><Mail size={14} /> {t("Email", "ইমেইল")}</a>
-                  </Button>
-                )}
-                {business.website_url && (
-                  <Button variant="outline" size="sm" asChild>
-                    <a href={business.website_url} target="_blank" rel="noopener noreferrer"><Globe size={14} /> {t("Website", "ওয়েবসাইট")}</a>
-                  </Button>
-                )}
-                {business.facebook_url && (
-                  <Button variant="outline" size="sm" asChild>
-                    <a href={business.facebook_url} target="_blank" rel="noopener noreferrer"><Facebook size={14} /> Facebook</a>
-                  </Button>
-                )}
-                <Button variant="outline" size="sm" onClick={handleFacebookShare}>
-                  <Share2 size={14} /> {t("Share", "শেয়ার")}
-                </Button>
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      {/* Actions */}
+      <div className="container mx-auto px-4 py-6">
+        <div className="flex flex-wrap gap-3">
+          {business.website_url && (
+            <Button variant="outline" asChild>
+              <a href={business.website_url} target="_blank" rel="noopener noreferrer">
+                <Globe size={16} className="mr-1" /> {t("Visit Website", "ওয়েবসাইট দেখুন")}
+              </a>
+            </Button>
+          )}
+          {business.facebook_url && (
+            <Button variant="outline" asChild>
+              <a href={business.facebook_url} target="_blank" rel="noopener noreferrer">
+                <Facebook size={16} className="mr-1" /> Facebook
+              </a>
+            </Button>
+          )}
+          {business.phone && (
+            <Button variant="outline" onClick={handleWhatsAppContact}>
+              <Phone size={16} className="mr-1" /> {t("WhatsApp", "ওয়াটসঅ্যাপ")}
+            </Button>
+          )}
+          {business.email && (
+            <Button variant="outline" asChild>
+              <a href={`mailto:${business.email}`}>
+                <Mail size={16} className="mr-1" /> {t("Email", "ইমেইল")}
+              </a>
+            </Button>
+          )}
+          <Button variant="outline" onClick={handleFacebookShare}>
+            <Share2 size={16} className="mr-1" /> {t("Share", "শেয়ার করুন")}
+          </Button>
+        </div>
+      </div>
+
       {/* Tabs */}
-      <div className="container mx-auto px-4 mt-6">
-        <div className="flex gap-1 border-b border-border mb-6 overflow-x-auto">
+      <div className="container mx-auto px-4 pb-16">
+        <div className="flex gap-6 border-b border-border mb-8">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-3 text-sm font-ui font-medium border-b-2 transition-colors whitespace-nowrap ${
+              className={`pb-3 text-sm font-ui border-b-2 transition-colors ${
                 activeTab === tab.id
                   ? "border-primary text-primary"
                   : "border-transparent text-muted-foreground hover:text-foreground"
@@ -228,163 +258,172 @@ export default function BusinessProfile() {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 pb-16">
-          <div className="md:col-span-2">
-            {activeTab === "about" && (
-              <div className="space-y-6">
-                <div>
-                  <h3 className="font-heading font-semibold text-lg text-foreground mb-3">
-                    {t("About", "আমাদের সম্পর্কে")}
-                  </h3>
-                  <p className="font-body text-foreground/80 leading-relaxed">
-                    {t(business.description_en, business.description_bn)}
-                  </p>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  {[
-                    { label: t("Founded", "প্রতিষ্ঠিত"), value: String(business.founded_year) },
-                    { label: t("Employees", "কর্মী"), value: business.employee_range },
-                    { label: t("District", "জেলা"), value: business.district },
-                    { label: t("Division", "বিভাগ"), value: business.division },
-                  ].map((fact) => (
-                    <div key={fact.label} className="p-3 rounded-lg bg-muted/50">
-                      <p className="text-xs text-muted-foreground font-ui">{fact.label}</p>
-                      <p className="font-data text-sm text-foreground mt-1">{fact.value}</p>
-                    </div>
-                  ))}
-                </div>
-                {business.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {business.tags.map((tag) => (
-                      <span key={tag} className="px-3 py-1 text-xs rounded-full bg-muted text-muted-foreground font-ui">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
+        {/* About tab */}
+        {activeTab === "about" && (
+          <div className="bg-card border border-border rounded-xl p-6">
+            <h2 className="font-heading font-bold text-xl text-foreground mb-4">
+              {t("About", "সম্পর্কে")}
+            </h2>
+            {business.description_en || business.description_bn ? (
+              <div
+                className="font-body text-foreground/80 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: (lang === "bn" ? business.description_bn : business.description_en) || "" }}
+              />
+            ) : (
+              <p className="text-muted-foreground italic">{t("No description yet.", "এখনো কোনো বিবরণ নেই।")}</p>
             )}
-
-            {activeTab === "services" && (
-              <div className="space-y-3">
-                <h3 className="font-heading font-semibold text-lg text-foreground mb-3">
-                  {t("Services", "সেবাসমূহ")}
-                </h3>
-                {business.services.map((svc, i) => (
-                  <div key={i} className="p-4 rounded-lg bg-card border border-border">
-                    <h4 className="font-heading font-semibold text-foreground">{t(svc.name_en, svc.name_bn)}</h4>
-                    <p className="text-sm text-muted-foreground font-body mt-1">{svc.description}</p>
-                    <Button variant="amber-outline" size="sm" className="mt-3">
-                      {t("Request Quote", "কোটেশন চান")}
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {activeTab === "reviews" && (
-              <div>
-                <h3 className="font-heading font-semibold text-lg text-foreground mb-3">
-                  {t("Reviews", "পর্যালোচনা")}
-                </h3>
-                <div className="flex items-center gap-4 mb-6 p-4 rounded-lg bg-card border border-border">
-                  <div className="text-center">
-                    <p className="font-display text-4xl text-primary">{business.rating_avg}</p>
-                    <div className="flex gap-0.5 justify-center mt-1">
-                      {[1, 2, 3, 4, 5].map((s) => (
-                        <Star key={s} size={14} className={s <= Math.round(business.rating_avg) ? "fill-primary text-primary" : "text-border"} />
-                      ))}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1 font-ui">{business.rating_count} {t("reviews", "রিভিউ")}</p>
-                  </div>
-                </div>
-                <p className="text-sm text-muted-foreground font-ui">
-                  {t("Reviews will appear here when customers leave feedback.", "গ্রাহকরা ফিডব্যাক দিলে এখানে দেখা যাবে।")}
-                </p>
-              </div>
-            )}
-
-            {activeTab === "contact" && (
-              <div className="space-y-4">
-                <h3 className="font-heading font-semibold text-lg text-foreground mb-3">
-                  {t("Contact Information", "যোগাযোগের তথ্য")}
-                </h3>
-                <div className="space-y-3">
-                  {business.phone && (
-                    <a href={`tel:${business.phone}`} className="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-colors">
-                      <Phone size={18} className="text-primary" />
-                      <span className="font-data text-sm">{business.phone}</span>
-                    </a>
-                  )}
-                  {business.email && (
-                    <a href={`mailto:${business.email}`} className="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-colors">
-                      <Mail size={18} className="text-primary" />
-                      <span className="font-ui text-sm">{business.email}</span>
-                    </a>
-                  )}
-                  {business.website_url && (
-                    <a href={business.website_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-colors">
-                      <Globe size={18} className="text-primary" />
-                      <span className="font-ui text-sm">{business.website_url}</span>
-                      <ExternalLink size={14} className="text-muted-foreground ml-auto" />
-                    </a>
-                  )}
+            <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+              <div className="bg-background rounded-lg p-3">
+                <span className="text-muted-foreground font-ui">{t("Founded", "প্রতিষ্ঠিত")}</span>
+                <div className="mt-1 font-heading font-semibold text-foreground">
+                  {business.founded_year ? business.founded_year : t("Unknown", "অজানা")}
                 </div>
               </div>
-            )}
-          </div>
-
-          {/* Sidebar */}
-          <div className="space-y-4">
-            {!business.is_claimed && (
-              <div className="p-5 rounded-lg border-2 border-primary/30 bg-primary/5 text-center">
-                <p className="font-bengali font-semibold text-foreground">এটি কি আপনার ব্যবসা?</p>
-                <p className="text-xs text-muted-foreground font-ui mt-1">{t("Claim and update this profile", "এই প্রোফাইলটি দাবি করুন")}</p>
-                <Button variant="amber" size="sm" className="mt-3 w-full">
-                  {t("Claim Free", "বিনামূল্যে দাবি করুন")}
-                </Button>
+              <div className="bg-background rounded-lg p-3">
+                <span className="text-muted-foreground font-ui">{t("Employees", "কর্মী")}</span>
+                <div className="mt-1 font-heading font-semibold text-foreground">
+                  {business.employee_range || t("Not specified", "নির্দিষ্ট নয়")}
+                </div>
               </div>
-            )}
-
-            <div className="p-4 rounded-lg bg-card border border-border">
-              <h4 className="font-heading font-semibold text-sm text-foreground mb-3">
-                {t("Quick Stats", "দ্রুত তথ্য")}
-              </h4>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t("Profile Views", "প্রোফাইল ভিউ")}</span>
-                  <span className="font-data text-foreground">{business.view_count.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t("Rating", "রেটিং")}</span>
-                  <span className="font-data text-foreground">{business.rating_avg}/5</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t("Reviews", "রিভিউ")}</span>
-                  <span className="font-data text-foreground">{business.rating_count}</span>
+              <div className="bg-background rounded-lg p-3">
+                <span className="text-muted-foreground font-ui">{t("Location", "অবস্থান")}</span>
+                <div className="mt-1 font-heading font-semibold text-foreground">
+                  {business.district && <span className="flex items-center gap-1"><MapPin size={14} /> {business.district}</span>}
+                  {business.division && business.district && <span className="text-muted-foreground">, </span>}
+                  {business.division && <span className="text-muted-foreground">{business.division}</span>}
                 </div>
               </div>
             </div>
-
-            {/* Facebook Share */}
-            <Button variant="outline" className="w-full" onClick={handleFacebookShare}>
-              <Facebook size={16} className="text-blue-600" /> {t("Share on Facebook", "ফেসবুকে শেয়ার করুন")}
-            </Button>
           </div>
-        </div>
+        )}
 
-        {/* Similar */}
-        {similar.length > 0 && (
-          <div className="pb-16">
-            <h3 className="font-heading font-semibold text-lg text-foreground mb-4">
-              {t("Similar Businesses", "একই ধরনের ব্যবসা")}
-            </h3>
-            <div className="grid md:grid-cols-3 gap-4">
-              {similar.map((b) => <BusinessCard key={b.id} business={b} />)}
+        {/* Services tab */}
+        {activeTab === "services" && (
+          <div className="bg-card border border-border rounded-xl p-6">
+            <h2 className="font-heading font-bold text-xl text-foreground mb-4">
+              {t("Services", "সেবা")}
+            </h2>
+            {business.services && business.services.length > 0 ? (
+              <ul className="space-y-3">
+                {business.services.map((service: any, i: number) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <CheckCircle size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                    <span className="font-body text-foreground/80">
+                      {typeof service === "string" ? service : t(service.name_en || "", service.name_bn || "")}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-muted-foreground italic">{t("No services listed.", "কোনো সেবা তালিকাভুক্ত নেই।")}</p>
+            )}
+          </div>
+        )}
+
+        {/* Reviews tab */}
+        {activeTab === "reviews" && (
+          <div className="bg-card border border-border rounded-xl p-6">
+            <h2 className="font-heading font-bold text-xl text-foreground mb-4">
+              {t("Reviews", "পর্যালোচনা")}
+            </h2>
+            {business.rating_count > 0 ? (
+              <div className="flex items-center gap-4 mb-6">
+                <div className="text-center">
+                  <div className="font-heading font-bold text-4xl text-foreground">
+                    {business.rating_avg.toFixed(1)}
+                  </div>
+                  <div className="flex gap-0.5 text-secondary">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star
+                        key={star}
+                        size={20}
+                        className={`${star <= Math.round(business.rating_avg) ? "fill-primary text-primary" : "text-secondary/30"}`}
+                      />
+                    ))}
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {business.rating_count} {t("reviews", "রিভিউ")}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <p className="text-muted-foreground italic">{t("No reviews yet.", "এখনো কোনো রিভিউ নেই।")}</p>
+            )}
+          </div>
+        )}
+
+        {/* Contact tab */}
+        {activeTab === "contact" && (
+          <div className="bg-card border border-border rounded-xl p-6">
+            <h2 className="font-heading font-bold text-xl text-foreground mb-4">
+              {t("Contact", "যোগাযোগ")}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {business.address && (
+                <div className="flex items-start gap-3">
+                  <Building2 size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-ui text-sm text-muted-foreground">{t("Address", "ঠিকানা")}</p>
+                    <p className="font-body text-foreground/80">{business.address}</p>
+                    <p className="font-ui text-sm text-muted-foreground mt-1">
+                      {business.district}, {business.division}, Bangladesh
+                    </p>
+                  </div>
+                </div>
+              )}
+              {business.phone && (
+                <div className="flex items-start gap-3">
+                  <Phone size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-ui text-sm text-muted-foreground">{t("Phone", "ফোন")}</p>
+                    <a href={`tel:${business.phone}`} className="font-body text-foreground/80 hover:text-primary">
+                      {business.phone}
+                    </a>
+                  </div>
+                </div>
+              )}
+              {business.email && (
+                <div className="flex items-start gap-3">
+                  <Mail size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-ui text-sm text-muted-foreground">{t("Email", "ইমেইল")}</p>
+                    <a href={`mailto:${business.email}`} className="font-body text-foreground/80 hover:text-primary">
+                      {business.email}
+                    </a>
+                  </div>
+                </div>
+              )}
+              {business.website_url && (
+                <div className="flex items-start gap-3">
+                  <Globe size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-ui text-sm text-muted-foreground">{t("Website", "ওয়েবসাইট")}</p>
+                    <a href={business.website_url} target="_blank" rel="noopener noreferrer" className="font-body text-foreground/80 hover:text-primary">
+                      {business.website_url}
+                    </a>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}
       </div>
+
+      {/* Similar businesses */}
+      {similar.length > 0 && (
+        <div className="bg-card border-b border-border py-8">
+          <div className="container mx-auto px-4">
+            <h2 className="font-heading font-bold text-xl text-foreground mb-6">
+              {t("Similar Businesses", "অনুরূপ ব্যবসা")}
+            </h2>
+            <div className="grid md:grid-cols-3 gap-4">
+              {similar.map((biz) => (
+                <BusinessCard key={biz.id} business={biz} />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

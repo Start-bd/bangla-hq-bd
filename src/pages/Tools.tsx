@@ -1,4 +1,5 @@
 import { useLanguage } from "@/lib/language-context";
+import PublicSeo from "@/components/PublicSeo";
 import { Helmet } from "react-helmet-async";
 import { ecosystemTools } from "@/lib/mock-data";
 import { ExternalLink } from "lucide-react";
@@ -17,13 +18,17 @@ export default function Tools() {
 
   return (
     <div className="min-h-screen bg-background">
+      <PublicSeo
+        path="/tools"
+        titleEn="Business Tools — Made in Bangladesh | BanglaHQ"
+        titleBn="ব্যবসার টুলস — বাংলাদেশে তৈরি | BanglaHQ"
+        descriptionEn="Essential tools for Bangladeshi businesses. Discover Made-in-Bangladesh SaaS products and global tools for marketing, finance, HR, and communication."
+        descriptionBn="বাংলাদেশি ব্যবসার জন্য প্রয়োজনীয় টুলস। বাংলাদেশে তৈরি SaaS পণ্য এবং মার্কেটিং, আর্থিক, এইচআর এবং যোগাযোগের জন্য বিশ্বব্যাপী টুলস আবিষ্কার করুন।"
+      />
       <Helmet>
-        <title>Business Tools — Made in Bangladesh | BanglaHQ</title>
-        <meta name="description" content="Essential tools for Bangladeshi businesses. Discover Made-in-Bangladesh SaaS products and global tools for marketing, finance, HR, and communication." />
-        <link rel="canonical" href="https://banglahq.com/tools" />
-        <meta property="og:title" content="Business Tools | BanglaHQ" />
-        <meta property="og:description" content="Essential tools for Bangladeshi businesses — Made in Bangladesh and global." />
-        <meta property="og:url" content="https://banglahq.com/tools" />
+        <link rel="alternate" hrefLang="en" href="https://banglahq.com/tools" />
+        <link rel="alternate" hrefLang="bn-BD" href="https://banglahq.com/bn/tools" />
+        <link rel="alternate" hrefLang="x-default" href="https://banglahq.com/tools" />
       </Helmet>
       <div className="bg-card border-b border-border py-12">
         <div className="container mx-auto px-4 text-center">

@@ -1,4 +1,4 @@
-// Runs before `vite dev` and `vite build`; writes public/sitemap.xml with banglahq.com URLs.
+// Runs before `vite dev` and `vite build`; writes public/sitemap.xml (en) and public/sitemap-bn.xml (bn).
 import { writeFileSync } from "fs";
 import { resolve } from "path";
 import { createClient } from "@supabase/supabase-js";
@@ -19,9 +19,45 @@ const staticPages = [
   { loc: "/about", priority: "0.5", changefreq: "monthly" },
 ];
 
-const escape = (s: string) =>
+const escapeXml = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
    .replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+
+const bnStaticPages = staticPages.map((p) => ({
+  ...p,
+  loc: p.loc === "/" ? "/bn/" : `/bn${p.loc}`,
+}));
+
+function buildUrlEntries(pages: typeof staticPages, businesses: { slug: string; updated_at: string | null }[]) {
+  const staticUrls = pages.map(
+    (p) => `  <url>
+    <loc>${BASE_URL}${p.loc}</loc>
+    <lastmod>${TODAY}</lastmod>
+    <changefreq>${p.changefreq}</changefreq>
+    <priority>${p.priority}</priority>
+  </url>`,
+  );
+
+  const bizUrls = businesses.map((b) => {
+    const lastmod = b.updated_at ? new Date(b.updated_at).toISOString().split("T")[0] : TODAY;
+    return `  <url>
+    <loc>${BASE_URL}/${escapeXml(b.slug)}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
+  });
+
+  return [...staticUrls, ...bizUrls];
+}
+
+function xmlFor(entries: string[]) {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${entries.join("\n")}
+</urlset>
+`;
+}
 
 async function main() {
   let businesses: { slug: string; updated_at: string | null }[] = [];
@@ -39,33 +75,14 @@ async function main() {
     }
   }
 
-  const staticUrls = staticPages.map(
-    (p) => `  <url>
-    <loc>${BASE_URL}${p.loc}</loc>
-    <lastmod>${TODAY}</lastmod>
-    <changefreq>${p.changefreq}</changefreq>
-    <priority>${p.priority}</priority>
-  </url>`,
-  );
+  const enEntries = buildUrlEntries(staticPages, businesses);
+  const bnEntries = buildUrlEntries(bnStaticPages, businesses);
 
-  const bizUrls = businesses.map((b) => {
-    const lastmod = b.updated_at ? new Date(b.updated_at).toISOString().split("T")[0] : TODAY;
-    return `  <url>
-    <loc>${BASE_URL}/${escape(b.slug)}</loc>
-    <lastmod>${lastmod}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>`;
-  });
+  writeFileSync(resolve("public/sitemap.xml"), xmlFor(enEntries));
+  writeFileSync(resolve("public/sitemap-bn.xml"), xmlFor(bnEntries));
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${[...staticUrls, ...bizUrls].join("\n")}
-</urlset>
-`;
-
-  writeFileSync(resolve("public/sitemap.xml"), xml);
   console.log(`sitemap.xml written (${staticPages.length + businesses.length} entries)`);
+  console.log(`sitemap-bn.xml written (${bnStaticPages.length + businesses.length} entries)`);
 }
 
 main();

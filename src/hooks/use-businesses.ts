@@ -31,7 +31,11 @@ function mapRow(row: any): Business {
     rating_avg: Number(row.rating_avg) || 0,
     rating_count: row.rating_count ?? 0,
     view_count: row.view_count ?? 0,
-    services: Array.isArray(row.services) ? row.services : [],
+    services: Array.isArray(row.services)
+      ? row.services.map((s: any) =>
+          typeof s === "string" ? s : { name_bn: s.name_bn ?? "", name_en: s.name_en ?? "", description: s.description ?? "" }
+        )
+      : [],
     tags: row.tags ?? [],
   };
 }

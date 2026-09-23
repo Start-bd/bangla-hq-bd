@@ -1,5 +1,8 @@
 # BanglaHQ robots.txt
 
+Sitemap: https://banglahq.com/sitemap.xml
+Sitemap: https://banglahq.com/sitemap-bn.xml
+
 User-agent: Googlebot
 Allow: /
 
@@ -45,5 +48,3 @@ Allow: /
 
 User-agent: *
 Allow: /
-
-Sitemap: https://banglahq.com/sitemap.xml

@@ -17,8 +17,6 @@ const BanglaHQLogo = ({ to }: { to: string }) => (
 const navLinks = [
   { to: "/directory", en: "Directory", bn: "ডিরেক্টরি" },
   { to: "/startups", en: "Startups", bn: "স্টার্টআপ" },
-  { to: "/b2b", en: "B2B", bn: "B2B" },
-  { to: "/news", en: "News", bn: "খবর" },
   { to: "/tools", en: "Tools", bn: "টুলস" },
 ];
 
