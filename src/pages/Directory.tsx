@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useLanguage } from "@/lib/language-context";
 import PublicSeo from "@/components/PublicSeo";
 import { Search, SlidersHorizontal, X } from "lucide-react";
@@ -9,9 +10,10 @@ import { useBusinesses } from "@/hooks/use-businesses";
 
 export default function Directory() {
   const { t } = useLanguage();
-  const [search, setSearch] = useState("");
+  const [searchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("q") ?? "");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedDivision, setSelectedDivision] = useState<string | null>(null);
+  const [selectedDivision, setSelectedDivision] = useState<string | null>(searchParams.get("division"));
   const [showFilters, setShowFilters] = useState(false);
 
   const { data: businesses = [], isLoading } = useBusinesses({
