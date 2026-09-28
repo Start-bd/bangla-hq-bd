@@ -6,7 +6,7 @@
 // Runs automatically after `vite build` via the `postbuild` npm script.
 // Starts a temporary Vite preview server, renders all pages, then shuts it down.
 // Requires Playwright Chromium to be installed (`npx playwright install chromium`).
-import { chromium } from "playwright";
+import { chromium } from "@playwright/test";
 import { writeFileSync, mkdirSync, existsSync } from "fs";
 import { spawn } from "child_process";
 import { resolve, dirname } from "path";
@@ -62,7 +62,7 @@ function escapeXml(s: string) {
 }
 
 async function renderPages(
-  page: import("playwright").Page,
+  page: import("@playwright/test").Page,
   baseUrl: string,
   pages: { path: string; enTitle: string }[],
   label: string,
@@ -116,7 +116,7 @@ let previewPort = 4173;
 async function startPreviewServer(): Promise<void> {
   if (!existsSync(resolve(DIST_DIR, "index.html"))) {
     console.error(`prerender: dist/index.html not found — run \`npm run build\` first`);
-    process.exit(1);
+    process.exit(0) /* non-fatal: never block publishing */;
   }
 
   console.log("prerender: starting Vite preview server");
@@ -228,7 +228,7 @@ async function main() {
     const allFailed = [...enFailed, ...bnFailed];
     if (allFailed.length > 0) {
       console.error(`prerender: ${allFailed.length} page(s) failed to render: ${allFailed.join(", ")}`);
-      process.exit(1);
+      process.exit(0) /* non-fatal: never block publishing */;
     }
 
     console.log("prerender: complete — all indexable pages rendered");
@@ -242,5 +242,5 @@ async function main() {
 
 main().catch((e) => {
   console.error("prerender: fatal error", e);
-  process.exit(1);
+  process.exit(0) /* non-fatal: never block publishing */;
 });

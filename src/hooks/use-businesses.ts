@@ -63,7 +63,7 @@ export function useBusinesses(filters?: {
       if (filters?.startup) query = query.eq("is_startup", true);
       if (filters?.search) {
         // Sanitize for ILIKE %...% injection: strip wildcards and parens.
-        const sanitized = filters.search.replace(/[%_()\\]/g, "");
+        const sanitized = filters.search.replace(/[%_(),\\]/g, "");
         if (sanitized.length > 0 && sanitized.length <= 100) {
           query = query.or(`name_en.ilike.%${sanitized}%,name_bn.ilike.%${sanitized}%`);
         }

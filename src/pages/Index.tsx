@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/lib/language-context";
 import PublicSeo from "@/components/PublicSeo";
 import { Button } from "@/components/ui/button";
@@ -44,6 +44,9 @@ const quickSearchChips = [
 
 export default function Index() {
   const { t, localizePath } = useLanguage();
+  const navigate = useNavigate();
+  const [heroQuery, setHeroQuery] = useState("");
+  const [heroDivision, setHeroDivision] = useState("");
   const { data: featuredBusinesses = [] } = useBusinesses({ featured: true, limit: 6 });
   const { data: startups = [] } = useBusinesses({ startup: true, limit: 3 });
   const { data: stats } = useBusinessStats();
@@ -95,28 +98,46 @@ export default function Index() {
 
           {/* SEARCH BAR */}
           <div className="mt-8 max-w-3xl mx-auto">
-            <div className="flex flex-col md:flex-row bg-card rounded-xl border border-border shadow-warm overflow-hidden">
+            <form
+              role="search"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const params = new URLSearchParams();
+                if (heroQuery.trim()) params.set("q", heroQuery.trim());
+                if (heroDivision) params.set("division", heroDivision);
+                const qs = params.toString();
+                navigate(localizePath("/directory") + (qs ? `?${qs}` : ""));
+              }}
+              className="flex flex-col md:flex-row bg-card rounded-xl border border-border shadow-warm overflow-hidden"
+            >
               <div className="flex-1 flex items-center px-4 border-b md:border-b-0 md:border-r border-border">
                 <Search size={20} className="text-muted-foreground flex-shrink-0" />
                 <input
                   type="text"
+                  value={heroQuery}
+                  onChange={(e) => setHeroQuery(e.target.value)}
+                  aria-label={t("Search businesses", "ব্যবসা খুঁজুন")}
                   placeholder={t("Search businesses or services...", "ব্যবসা বা সেবা খুঁজুন...")}
                   className="w-full px-3 py-4 bg-transparent text-foreground font-ui focus:outline-none placeholder:text-muted-foreground"
                 />
               </div>
               <div className="flex items-center px-4 border-b md:border-b-0 md:border-r border-border">
                 <MapPin size={18} className="text-muted-foreground flex-shrink-0" />
-                <select className="px-2 py-4 bg-transparent text-foreground font-ui focus:outline-none cursor-pointer">
-                  <option>{t("All Bangladesh", "সারা বাংলাদেশ")}</option>
+                <select
+                  value={heroDivision}
+                  onChange={(e) => setHeroDivision(e.target.value)}
+                  aria-label={t("Division", "বিভাগ")}
+                  className="px-2 py-4 bg-transparent text-foreground font-ui focus:outline-none cursor-pointer">
+                  <option value="">{t("All Bangladesh", "সারা বাংলাদেশ")}</option>
                   {divisions.map((d) => (
-                    <option key={d.name_en}>{t(d.name_en, d.name_bn)}</option>
+                    <option key={d.name_en} value={d.name_en}>{t(d.name_en, d.name_bn)}</option>
                   ))}
                 </select>
               </div>
-              <Button variant="amber" className="m-2 md:m-1.5 rounded-lg h-auto py-3 px-6">
+              <Button type="submit" variant="amber" className="m-2 md:m-1.5 rounded-lg h-auto py-3 px-6">
                 {t("Search", "খুঁজুন")}
               </Button>
-            </div>
+            </form>
             <div className="flex flex-wrap justify-center gap-2 mt-4">
               {quickSearchChips.map((chip) => (
                 <Link

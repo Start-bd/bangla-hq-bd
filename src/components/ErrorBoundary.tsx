@@ -42,19 +42,18 @@ export default function ErrorFallback({ error, reset }: { error: Error; reset?: 
   );
 }
 
-export function ErrorBoundary({ children }: { children: ReactNode }) {
-  const [hasError, setHasError] = React.useState(false);
-  const [error, setError] = React.useState<Error | null>(null);
-
-  React.useEffect(() => {
-    if (hasError && error) {
-      console.error("ErrorBoundary caught:", error);
-    }
-  }, [hasError, error]);
-
-  if (hasError) {
-    return <ErrorFallback error={error ?? new Error("Unknown error")} />;
+export class ErrorBoundary extends React.Component<{ children: ReactNode }, { error: Error | null }> {
+  state = { error: null as Error | null };
+  static getDerivedStateFromError(error: Error) {
+    return { error };
   }
-
-  return <React.Fragment>{children}</React.Fragment>;
+  componentDidCatch(error: Error) {
+    console.error("ErrorBoundary caught:", error);
+  }
+  render() {
+    if (this.state.error) {
+      return <ErrorFallback error={this.state.error} reset={() => this.setState({ error: null })} />;
+    }
+    return this.props.children;
+  }
 }
