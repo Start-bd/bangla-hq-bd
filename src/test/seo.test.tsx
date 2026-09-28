@@ -13,7 +13,7 @@ function renderWithRouter(children: React.ReactNode, url?: string) {
     const ctx: any = {};
     const body = renderToString(<HelmetProvider context={ctx}>{children}</HelmetProvider>);
     const h = ctx.helmet;
-    return [h?.title, h?.meta, h?.link, h?.script].map((x: any) => x?.toString() ?? "").join("") + body;
+    return [h?.title, h?.meta, h?.link, h?.script].map((x: any) => x?.toString() ?? "").join("").replace(/ data-rh="true"/g, "") + body;
   }
   return renderToString(
     <StaticRouter location={url}>
