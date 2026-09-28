@@ -3,11 +3,17 @@ import { renderToString } from "react-dom/server";
 import { LanguageProvider } from "@/lib/language-context";
 import PublicSeo from "@/components/PublicSeo";
 import { StaticRouter } from "react-router-dom/server";
+import { HelmetProvider } from "react-helmet-async";
 
 // --- Helpers ---------------------------------------------------------------
 
 function renderWithRouter(children: React.ReactNode, url?: string) {
-  if (!url) return renderToString(<>{children}</>);
+  if (!url) {
+    const ctx: any = {};
+    const body = renderToString(<HelmetProvider context={ctx}>{children}</HelmetProvider>);
+    const h = ctx.helmet;
+    return [h?.title, h?.meta, h?.link, h?.script].map((x: any) => x?.toString() ?? "").join("") + body;
+  }
   return renderToString(
     <StaticRouter location={url}>
       <LanguageProvider>{children}</LanguageProvider>
