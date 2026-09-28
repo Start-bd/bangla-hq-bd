@@ -44,6 +44,9 @@ const quickSearchChips = [
 
 export default function Index() {
   const { t, localizePath } = useLanguage();
+  const navigate = useNavigate();
+  const [heroQuery, setHeroQuery] = useState("");
+  const [heroDivision, setHeroDivision] = useState("");
   const { data: featuredBusinesses = [] } = useBusinesses({ featured: true, limit: 6 });
   const { data: startups = [] } = useBusinesses({ startup: true, limit: 3 });
   const { data: stats } = useBusinessStats();
