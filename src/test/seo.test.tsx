@@ -87,7 +87,7 @@ describe("PublicSeo", () => {
     expect(markup).toContain('hreflang="en"');
     expect(markup).toContain('hreflang="bn-BD"');
     expect(markup).toContain('hreflang="x-default"');
-    expect(markup).toMatch(/canonical href="https:\/\/banglahq\.com\/"/);
+    expect(markup).toMatch(/canonical" href="https:\/\/banglahq\.com\/"/);
   });
 
   it("renders a Bangla page with Bangla title and reversed canonical", () => {
@@ -107,7 +107,7 @@ describe("PublicSeo", () => {
 
     expect(markup).toContain('<title>বাংলা শিরোনাম</title>');
     expect(markup).toContain('content="বাংলা বর্ণনা"');
-    expect(markup).toMatch(/canonical href="https:\/\/banglahq\.com\/bn\/directory"/);
+    expect(markup).toMatch(/canonical" href="https:\/\/banglahq\.com\/bn\/directory"/);
   });
 
   it("sets og:locale correctly for each language", () => {
