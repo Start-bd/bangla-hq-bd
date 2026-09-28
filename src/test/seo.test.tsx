@@ -4,6 +4,7 @@ import { LanguageProvider } from "@/lib/language-context";
 import PublicSeo from "@/components/PublicSeo";
 import { StaticRouter } from "react-router-dom/server";
 import { HelmetProvider } from "react-helmet-async";
+(HelmetProvider as any).canUseDOM = false;
 
 // --- Helpers ---------------------------------------------------------------
 
