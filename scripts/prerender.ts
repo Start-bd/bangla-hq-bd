@@ -136,7 +136,8 @@ async function startPreviewServer(): Promise<void> {
     previewServer!.stdout?.on("data", (chunk: Buffer) => {
       buffered += chunk.toString();
       if (buffered.includes("Local:") || buffered.includes("ready")) {
-        const match = buffered.match(/port\s+(\d+)/) || buffered.match(/localhost:(\d+)/);
+        // Vite prints "Local: http://localhost:XXXX/" or "ready" with port info.
+        const match = buffered.match(/localhost:(\d+)/) || buffered.match(/port\s+(\d+)/);
         if (match) {
           previewPort = parseInt(match[1], 10);
           clearTimeout(timeout);
@@ -147,7 +148,7 @@ async function startPreviewServer(): Promise<void> {
     previewServer!.stderr?.on("data", (chunk: Buffer) => {
       // Vite preview prints "Local:" to stderr in some versions.
       if (chunk.toString().includes("ready") || chunk.toString().includes("Local:")) {
-        const match = chunk.toString().match(/port\s+(\d+)/) || chunk.toString().match(/localhost:(\d+)/);
+        const match = chunk.toString().match(/localhost:(\d+)/) || chunk.toString().match(/port\s+(\d+)/);
         if (match) {
           previewPort = parseInt(match[1], 10);
           clearTimeout(timeout);
@@ -158,8 +159,26 @@ async function startPreviewServer(): Promise<void> {
     previewServer!.on("error", reject);
   });
 
-  // Give the server a moment to be reachable.
-  await new Promise((r) => setTimeout(r, 500));
+  // Poll the server until it responds, instead of a fixed sleep.
+  const base = `http://localhost:${previewPort}`;
+  const serverReady = await new Promise<boolean>((resolve) => {
+    let remaining = 15;
+    const poll = setInterval(() => {
+      remaining--;
+      fetch(base).then(() => {
+        clearInterval(poll);
+        resolve(true);
+      }).catch(() => {
+        if (remaining <= 0) {
+          clearInterval(poll);
+          resolve(false);
+        }
+      });
+    }, 200);
+  });
+  if (!serverReady) {
+    console.warn("prerender: preview server did not respond within 15s, continuing anyway");
+  }
 }
 
 async function stopPreviewServer(): Promise<void> {
@@ -172,9 +191,7 @@ async function stopPreviewServer(): Promise<void> {
 // ---- Main ------------------------------------------------------------------
 
 async function main() {
-  const BASE_URL = `http://localhost:${process.env.VITE_PREVIEW_PORT || "4173"}`;
-
-  // Start preview server (_or_ trust an already-running one via env).
+  // Start preview server (or trust an already-running one via env).
   let serverOwned = false;
   if (!process.env.VITE_PREVIEW_URL) {
     await startPreviewServer();

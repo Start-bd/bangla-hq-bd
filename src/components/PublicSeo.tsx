@@ -10,6 +10,7 @@ type PublicSeoProps = {
   descriptionEn: string;
   descriptionBn: string;
   jsonLd?: Record<string, unknown>;
+  ogImage?: string;
 };
 
 const englishPath = (path: string) => path === "/" ? "/" : `/${path.replace(/^\/+|\/+$/g, "")}`;
@@ -22,6 +23,7 @@ export default function PublicSeo({
   descriptionEn,
   descriptionBn,
   jsonLd,
+  ogImage,
 }: PublicSeoProps) {
   const { lang } = useLanguage();
   const enUrl = `${SITE_URL}${englishPath(path)}`;
@@ -29,6 +31,7 @@ export default function PublicSeo({
   const canonical = lang === "bn" ? bnUrl : enUrl;
   const title = lang === "bn" ? titleBn : titleEn;
   const description = lang === "bn" ? descriptionBn : descriptionEn;
+  const image = ogImage || `${SITE_URL}/og-banglahq.jpg`;
 
   return (
     <Helmet htmlAttributes={{ lang: lang === "bn" ? "bn-BD" : "en" }}>
@@ -44,6 +47,11 @@ export default function PublicSeo({
       <meta property="og:url" content={canonical} />
       <meta property="og:locale" content={lang === "bn" ? "bn_BD" : "en_US"} />
       <meta property="og:locale:alternate" content={lang === "bn" ? "en_US" : "bn_BD"} />
+      <meta property="og:image" content={image} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content={image} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       {jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}

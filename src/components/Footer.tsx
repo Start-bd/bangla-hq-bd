@@ -9,7 +9,6 @@ const footerLinks = {
       { to: "/directory/it-software", en: "IT Companies", bn: "আইটি কোম্পানি" },
       { to: "/directory/restaurant", en: "Restaurants", bn: "রেস্তোরাঁ" },
       { to: "/startups", en: "Startups", bn: "স্টার্টআপ" },
-      { to: "/b2b", en: "B2B Marketplace", bn: "B2B মার্কেটপ্লেস" },
     ],
   },
   forBiz: {
@@ -18,7 +17,6 @@ const footerLinks = {
       { to: "/onboarding", en: "Add Your Business", bn: "ব্যবসা যোগ করুন" },
       { to: "/pricing", en: "Pricing Plans", bn: "প্ল্যান ও মূল্য" },
       { to: "/tools", en: "Business Tools", bn: "ব্যবসার টুলস" },
-      { to: "/news", en: "Business News", bn: "ব্যবসার খবর" },
     ],
   },
   ecosystem: {

@@ -1,12 +1,12 @@
 export interface Business {
   id: string;
   slug: string;
-  name_bn: string;
   name_en: string;
-  tagline_bn: string;
+  name_bn: string;
   tagline_en: string;
-  description_bn: string;
+  tagline_bn: string;
   description_en: string;
+  description_bn: string;
   category: string;
   category_bn: string;
   division: string;
@@ -15,13 +15,17 @@ export interface Business {
   email: string;
   website_url: string;
   facebook_url: string;
-  logo_url: string;
+  logo_url: string | null;
+  cover_url: string | null;
   founded_year: number;
   employee_range: string;
   is_verified: boolean;
   is_claimed: boolean;
   is_featured: boolean;
   is_startup: boolean;
+  plan: string;
+  plan_expires_at: string | null;
+  address: string;
   rating_avg: number;
   rating_count: number;
   view_count: number;
@@ -60,9 +64,11 @@ export const businesses: Business[] = [
     description_bn: "বাংলাদেশের বৃহত্তম টেলিকমিউনিকেশন কোম্পানি।", description_en: "Bangladesh's largest telecommunications company.",
     category: "it-software", category_bn: "তথ্যপ্রযুক্তি", division: "Dhaka", district: "Dhaka",
     phone: "+880-2-9882990", email: "info@grameenphone.com", website_url: "https://grameenphone.com",
-    facebook_url: "https://facebook.com/grameenphone", logo_url: "",
+    facebook_url: "https://facebook.com/grameenphone", logo_url: null, cover_url: null,
+    address: "",
     founded_year: 1997, employee_range: "200+", is_verified: true, is_claimed: true, is_featured: true,
-    is_startup: false, rating_avg: 4.2, rating_count: 1850, view_count: 45000,
+    is_startup: false, plan: "free", plan_expires_at: null,
+    rating_avg: 4.2, rating_count: 1850, view_count: 45000,
     services: [{ name_bn: "মোবাইল সেবা", name_en: "Mobile Services", description: "Prepaid and postpaid plans" }],
     tags: ["Telecom", "Mobile", "Internet"],
   },
@@ -72,9 +78,11 @@ export const businesses: Business[] = [
     description_bn: "বাংলাদেশের শীর্ষস্থানীয় মোবাইল ফিন্যান্সিয়াল সার্ভিস।", description_en: "Bangladesh's leading mobile financial service.",
     category: "financial-services", category_bn: "আর্থিক সেবা", division: "Dhaka", district: "Dhaka",
     phone: "+880-2-16247", email: "info@bkash.com", website_url: "https://bkash.com",
-    facebook_url: "https://facebook.com/bkaborohat", logo_url: "",
+    facebook_url: "https://facebook.com/bkaborohat", logo_url: null, cover_url: null,
+    address: "",
     founded_year: 2011, employee_range: "200+", is_verified: true, is_claimed: true, is_featured: true,
-    is_startup: false, rating_avg: 4.0, rating_count: 3200, view_count: 62000,
+    is_startup: false, plan: "free", plan_expires_at: null,
+    rating_avg: 4.0, rating_count: 3200, view_count: 62000,
     services: [{ name_bn: "মোবাইল ব্যাংকিং", name_en: "Mobile Banking", description: "Send and receive money" }],
     tags: ["Fintech", "Mobile Banking", "Payments"],
   },
@@ -84,9 +92,11 @@ export const businesses: Business[] = [
     description_bn: "বাংলাদেশের প্রযুক্তি স্টার্টআপ ইকোসিস্টেম গড়ে তোলা।", description_en: "Building Bangladesh's tech startup ecosystem.",
     category: "it-software", category_bn: "তথ্যপ্রযুক্তি", division: "Mymensingh", district: "Mymensingh",
     phone: "+880-1700000000", email: "hello@startbd.com", website_url: "https://startbd.com",
-    facebook_url: "https://facebook.com/startbd", logo_url: "",
+    facebook_url: "https://facebook.com/startbd", logo_url: null, cover_url: null,
+    address: "",
     founded_year: 2023, employee_range: "11-50", is_verified: true, is_claimed: true, is_featured: true,
-    is_startup: true, rating_avg: 4.8, rating_count: 120, view_count: 8500,
+    is_startup: true, plan: "free", plan_expires_at: null,
+    rating_avg: 4.8, rating_count: 120, view_count: 8500,
     services: [
       { name_bn: "AI টুলস", name_en: "AI Tools", description: "AI-powered business solutions" },
       { name_bn: "SEO সেবা", name_en: "SEO Services", description: "Search engine optimization" },
@@ -99,9 +109,11 @@ export const businesses: Business[] = [
     description_bn: "বাংলাদেশের বৃহত্তম ইলেকট্রনিক্স ও অটোমোবাইল প্রস্তুতকারক।", description_en: "Bangladesh's largest electronics and automobile manufacturer.",
     category: "it-software", category_bn: "তথ্যপ্রযুক্তি", division: "Dhaka", district: "Gazipur",
     phone: "+880-2-09666999999", email: "info@waltonbd.com", website_url: "https://waltonbd.com",
-    facebook_url: "https://facebook.com/waltonbd", logo_url: "",
+    facebook_url: "https://facebook.com/waltonbd", logo_url: null, cover_url: null,
+    address: "",
     founded_year: 1977, employee_range: "200+", is_verified: true, is_claimed: true, is_featured: true,
-    is_startup: false, rating_avg: 4.3, rating_count: 2100, view_count: 38000,
+    is_startup: false, plan: "free", plan_expires_at: null,
+    rating_avg: 4.3, rating_count: 2100, view_count: 38000,
     services: [{ name_bn: "ইলেকট্রনিক্স", name_en: "Electronics", description: "Consumer electronics" }],
     tags: ["Electronics", "Manufacturing", "Automobile"],
   },
@@ -111,9 +123,11 @@ export const businesses: Business[] = [
     description_bn: "বাংলাদেশের অন্যতম বৃহৎ শিল্প গোষ্ঠী।", description_en: "One of the largest conglomerates in Bangladesh.",
     category: "healthcare", category_bn: "স্বাস্থ্যসেবা", division: "Dhaka", district: "Dhaka",
     phone: "+880-2-8833047", email: "info@squaregroup.com", website_url: "https://squaregroup.com",
-    facebook_url: "https://facebook.com/squarepharma", logo_url: "",
+    facebook_url: "https://facebook.com/squarepharma", logo_url: null, cover_url: null,
+    address: "",
     founded_year: 1958, employee_range: "200+", is_verified: true, is_claimed: true, is_featured: true,
-    is_startup: false, rating_avg: 4.5, rating_count: 980, view_count: 28000,
+    is_startup: false, plan: "free", plan_expires_at: null,
+    rating_avg: 4.5, rating_count: 980, view_count: 28000,
     services: [{ name_bn: "ফার্মাসিউটিক্যালস", name_en: "Pharmaceuticals", description: "Medicine manufacturing" }],
     tags: ["Pharma", "Healthcare", "Consumer Goods"],
   },
@@ -123,9 +137,11 @@ export const businesses: Business[] = [
     description_bn: "বাংলাদেশের ব্যবসার জন্য SEO টুল এবং মার্কেটিং সমাধান।", description_en: "SEO tools and marketing solutions for Bangladeshi businesses.",
     category: "it-software", category_bn: "তথ্যপ্রযুক্তি", division: "Mymensingh", district: "Mymensingh",
     phone: "+880-1700000001", email: "hello@banglaseo.com", website_url: "https://banglaseo.com",
-    facebook_url: "", logo_url: "",
+    facebook_url: "", logo_url: null, cover_url: null,
+    address: "",
     founded_year: 2024, employee_range: "1-10", is_verified: true, is_claimed: true, is_featured: false,
-    is_startup: true, rating_avg: 4.6, rating_count: 45, view_count: 3200,
+    is_startup: true, plan: "free", plan_expires_at: null,
+    rating_avg: 4.6, rating_count: 45, view_count: 3200,
     services: [{ name_bn: "SEO অডিট", name_en: "SEO Audit", description: "Complete website SEO analysis" }],
     tags: ["SEO", "Marketing", "Digital"],
   },
@@ -135,9 +151,11 @@ export const businesses: Business[] = [
     description_bn: "বাংলাদেশের দ্বিতীয় বৃহত্তম মোবাইল অপারেটর।", description_en: "Second largest mobile operator in Bangladesh.",
     category: "it-software", category_bn: "তথ্যপ্রযুক্তি", division: "Dhaka", district: "Dhaka",
     phone: "+880-2-16222", email: "info@robi.com.bd", website_url: "https://robi.com.bd",
-    facebook_url: "https://facebook.com/roaborohat", logo_url: "",
+    facebook_url: "https://facebook.com/roaborohat", logo_url: null, cover_url: null,
+    address: "",
     founded_year: 1997, employee_range: "200+", is_verified: true, is_claimed: true, is_featured: false,
-    is_startup: false, rating_avg: 3.9, rating_count: 1420, view_count: 31000,
+    is_startup: false, plan: "free", plan_expires_at: null,
+    rating_avg: 3.9, rating_count: 1420, view_count: 31000,
     services: [{ name_bn: "মোবাইল সেবা", name_en: "Mobile Services", description: "Mobile connectivity" }],
     tags: ["Telecom", "Mobile", "Internet"],
   },
@@ -147,9 +165,11 @@ export const businesses: Business[] = [
     description_bn: "কৃষি, ফার্মাসিউটিক্যালস ও ভোগ্যপণ্যের শীর্ষ কোম্পানি।", description_en: "Leading company in agriculture, pharmaceuticals, and consumer goods.",
     category: "agriculture", category_bn: "কৃষি", division: "Dhaka", district: "Dhaka",
     phone: "+880-2-8837222", email: "info@aci-bd.com", website_url: "https://aci-bd.com",
-    facebook_url: "https://facebook.com/ACILimited", logo_url: "",
+    facebook_url: "https://facebook.com/ACILimited", logo_url: null, cover_url: null,
+    address: "",
     founded_year: 1968, employee_range: "200+", is_verified: true, is_claimed: true, is_featured: false,
-    is_startup: false, rating_avg: 4.1, rating_count: 560, view_count: 19000,
+    is_startup: false, plan: "free", plan_expires_at: null,
+    rating_avg: 4.1, rating_count: 560, view_count: 19000,
     services: [{ name_bn: "কৃষি পণ্য", name_en: "Agricultural Products", description: "Seeds, fertilizers, pesticides" }],
     tags: ["Agriculture", "Pharma", "Consumer"],
   },
@@ -159,9 +179,11 @@ export const businesses: Business[] = [
     description_bn: "কৃত্রিম বুদ্ধিমত্তা দিয়ে ইন্টেরিয়র ডিজাইন করুন।", description_en: "Transform your spaces with AI-powered interior design.",
     category: "it-software", category_bn: "তথ্যপ্রযুক্তি", division: "Mymensingh", district: "Mymensingh",
     phone: "+880-1700000002", email: "hello@interiorofai.com", website_url: "https://interiorofai.com",
-    facebook_url: "", logo_url: "",
+    facebook_url: "", logo_url: null, cover_url: null,
+    address: "",
     founded_year: 2024, employee_range: "1-10", is_verified: true, is_claimed: true, is_featured: false,
-    is_startup: true, rating_avg: 4.7, rating_count: 32, view_count: 2100,
+    is_startup: true, plan: "free", plan_expires_at: null,
+    rating_avg: 4.7, rating_count: 32, view_count: 2100,
     services: [{ name_bn: "AI ইন্টেরিয়র", name_en: "AI Interior Design", description: "AI-generated room designs" }],
     tags: ["AI", "Interior Design", "SaaS"],
   },
@@ -171,9 +193,11 @@ export const businesses: Business[] = [
     description_bn: "বাংলাদেশের প্রথম AI চরিত্র প্ল্যাটফর্ম।", description_en: "Bangladesh's first AI character platform.",
     category: "it-software", category_bn: "তথ্যপ্রযুক্তি", division: "Mymensingh", district: "Mymensingh",
     phone: "+880-1700000003", email: "hello@meetbd.com", website_url: "https://meetbd.com",
-    facebook_url: "", logo_url: "",
+    facebook_url: "", logo_url: null, cover_url: null,
+    address: "",
     founded_year: 2024, employee_range: "1-10", is_verified: true, is_claimed: true, is_featured: false,
-    is_startup: true, rating_avg: 4.5, rating_count: 67, view_count: 4300,
+    is_startup: true, plan: "free", plan_expires_at: null,
+    rating_avg: 4.5, rating_count: 67, view_count: 4300,
     services: [{ name_bn: "AI চ্যাটবট", name_en: "AI Chatbot", description: "Custom AI characters" }],
     tags: ["AI", "Chatbot", "Entertainment"],
   },
@@ -183,9 +207,11 @@ export const businesses: Business[] = [
     description_bn: "বাংলাদেশের সবচেয়ে জনপ্রিয় রাইড শেয়ারিং ও ডেলিভারি প্ল্যাটফর্ম।", description_en: "Bangladesh's most popular ride-sharing and delivery platform.",
     category: "transport", category_bn: "পরিবহন", division: "Dhaka", district: "Dhaka",
     phone: "+880-9612-016016", email: "support@pathao.com", website_url: "https://pathao.com",
-    facebook_url: "https://facebook.com/pathao", logo_url: "",
+    facebook_url: "https://facebook.com/pathao", logo_url: null, cover_url: null,
+    address: "",
     founded_year: 2015, employee_range: "200+", is_verified: true, is_claimed: true, is_featured: true,
-    is_startup: false, rating_avg: 3.8, rating_count: 5200, view_count: 72000,
+    is_startup: false, plan: "free", plan_expires_at: null,
+    rating_avg: 3.8, rating_count: 5200, view_count: 72000,
     services: [
       { name_bn: "রাইড শেয়ারিং", name_en: "Ride Sharing", description: "Bike and car rides" },
       { name_bn: "ফুড ডেলিভারি", name_en: "Food Delivery", description: "Restaurant food delivery" },
@@ -198,9 +224,11 @@ export const businesses: Business[] = [
     description_bn: "বাংলাদেশের বৃহত্তম ই-কমার্স মার্কেটপ্লেস।", description_en: "Bangladesh's largest e-commerce marketplace.",
     category: "it-software", category_bn: "তথ্যপ্রযুক্তি", division: "Dhaka", district: "Dhaka",
     phone: "+880-9612-016016", email: "support@daraz.com.bd", website_url: "https://daraz.com.bd",
-    facebook_url: "https://facebook.com/daaborohat", logo_url: "",
+    facebook_url: "https://facebook.com/daaborohat", logo_url: null, cover_url: null,
+    address: "",
     founded_year: 2015, employee_range: "200+", is_verified: true, is_claimed: true, is_featured: false,
-    is_startup: false, rating_avg: 3.5, rating_count: 8900, view_count: 95000,
+    is_startup: false, plan: "free", plan_expires_at: null,
+    rating_avg: 3.5, rating_count: 8900, view_count: 95000,
     services: [{ name_bn: "ই-কমার্স", name_en: "E-Commerce", description: "Online marketplace" }],
     tags: ["E-Commerce", "Marketplace", "Retail"],
   },

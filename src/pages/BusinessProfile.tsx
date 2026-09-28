@@ -29,7 +29,7 @@ function BusinessJsonLd({ business, lang }: { business: any; lang: "en" | "bn" }
     "@type": "LocalBusiness",
     name: name || name_en_fallback(business),
     alternateName: business.name_bn || business.name_en,
-    description: description || "",
+    description: description || tagline || "",
     url: lang === "bn" ? bnUrl : enUrl,
     telephone: business.phone || undefined,
     email: business.email || undefined,
@@ -56,10 +56,10 @@ function BusinessJsonLd({ business, lang }: { business: any; lang: "en" | "bn" }
   };
 
   const descForMeta = description
-    ? (description.length > 155
-        ? `${description.slice(0, 155).replace(/\s+\S*$/, "")}…`
-        : description)
-    : "";
+    ? description.length > 155
+      ? `${description.slice(0, 155).replace(/\s+\S*$/, "")}…`
+      : description
+    : (tagline || "");
 
   const ogDesc = tagline || descForMeta;
 
@@ -77,6 +77,9 @@ function BusinessJsonLd({ business, lang }: { business: any; lang: "en" | "bn" }
       <meta property="og:url" content={lang === "bn" ? bnUrl : enUrl} />
       <meta property="og:locale" content={lang === "bn" ? "bn_BD" : "en_US"} />
       <meta property="og:locale:alternate" content={lang === "bn" ? "en_US" : "bn_BD"} />
+      <meta property="og:image" content={business.logo_url || business.cover_url || `${SITE_URL}/og-banglahq.jpg`} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content={business.logo_url || business.cover_url || `${SITE_URL}/og-banglahq.jpg`} />
       <meta name="twitter:title" content={`${name} | BanglaHQ`} />
       <meta name="twitter:description" content={ogDesc} />
       <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
@@ -123,7 +126,7 @@ export default function BusinessProfile() {
     );
   }
 
-  const initials = business.name_en.slice(0, 2).toUpperCase();
+  const initials = (business.name_en || business.name_bn || "").slice(0, 2).toUpperCase();
 
   const handleFacebookShare = () => {
     const url = encodeURIComponent(`${SITE_URL}/${business.slug}`);

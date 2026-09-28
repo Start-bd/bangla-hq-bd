@@ -16,12 +16,8 @@ export default function About() {
         titleBn="BanglaHQ সম্পর্কে — বাংলাদেশের আনুষ্ঠানিক ব্যবসার ডিরেক্টরি"
         descriptionEn="BanglaHQ is Bangladesh's definitive business directory and growth platform. Every business deserves a professional digital presence."
         descriptionBn="BanglaHQ হলো বাংলাদেশের চূড়ান্ত ব্যবসার ডিরেক্টরি ও গ্রোথ প্ল্যাটফর্ম। প্রতিটি ব্যবসার একটি পেশাদার ডিজিটাল উপস্থিতি পাওয়ার যোগ্য।"
+        ogImage="https://banglahq.com/og-about.jpg"
       />
-      <Helmet>
-        <link rel="alternate" hrefLang="en" href="https://banglahq.com/about" />
-        <link rel="alternate" hrefLang="bn-BD" href="https://banglahq.com/bn/about" />
-        <link rel="alternate" hrefLang="x-default" href="https://banglahq.com/about" />
-      </Helmet>
       <div className="container mx-auto px-4 max-w-3xl">
         <h1 className="font-heading font-bold text-3xl md:text-4xl text-foreground text-center">
           {t("About BanglaHQ", "BanglaHQ সম্পর্কে")}

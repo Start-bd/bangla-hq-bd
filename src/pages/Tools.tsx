@@ -24,12 +24,8 @@ export default function Tools() {
         titleBn="ব্যবসার টুলস — বাংলাদেশে তৈরি | BanglaHQ"
         descriptionEn="Essential tools for Bangladeshi businesses. Discover Made-in-Bangladesh SaaS products and global tools for marketing, finance, HR, and communication."
         descriptionBn="বাংলাদেশি ব্যবসার জন্য প্রয়োজনীয় টুলস। বাংলাদেশে তৈরি SaaS পণ্য এবং মার্কেটিং, আর্থিক, এইচআর এবং যোগাযোগের জন্য বিশ্বব্যাপী টুলস আবিষ্কার করুন।"
+        ogImage="https://banglahq.com/og-tools.jpg"
       />
-      <Helmet>
-        <link rel="alternate" hrefLang="en" href="https://banglahq.com/tools" />
-        <link rel="alternate" hrefLang="bn-BD" href="https://banglahq.com/bn/tools" />
-        <link rel="alternate" hrefLang="x-default" href="https://banglahq.com/tools" />
-      </Helmet>
       <div className="bg-card border-b border-border py-12">
         <div className="container mx-auto px-4 text-center">
           <h1 className="font-heading font-bold text-3xl text-foreground">

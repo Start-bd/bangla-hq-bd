@@ -129,7 +129,7 @@ export default function Pricing() {
                 <span className="text-sm text-muted-foreground font-ui ml-1">{t(plan.period_en, plan.period_bn)}</span>
               </div>
               <ul className="mt-6 space-y-3">
-                {(t(plan.features_en.join("|||\"), plan.features_bn.join("|||\"))).split("|||\").map((f, i) => (
+                {(t(plan.features_en.join("|||"), plan.features_bn.join("|||"))).split("|||").map((f, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm font-ui text-foreground">
                     <Check size={16} className="text-secondary flex-shrink-0 mt-0.5" />
                     {f}

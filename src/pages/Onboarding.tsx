@@ -98,7 +98,7 @@ export default function Onboarding() {
     if (!userId) return;
     setSubmitting(true);
 
-    const slug = slugify(nameEn) || `biz-${Date.now()}`;
+    const slug = slugify(nameEn) || `biz-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
     const selectedCat = categories.find((c) => c.en === category);
 
     const { error } = await supabase.from("businesses").insert({

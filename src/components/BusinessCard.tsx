@@ -6,7 +6,7 @@ import type { Business } from "@/lib/mock-data";
 
 export default function BusinessCard({ business }: { business: Business }) {
   const { t, localizePath } = useLanguage();
-  const initials = business.name_en.slice(0, 2).toUpperCase();
+  const initials = (business.name_en || business.name_bn || "").slice(0, 2).toUpperCase();
 
   return (
     <Link
