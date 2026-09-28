@@ -1,39 +1,579 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://banglahq.com/</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/" />
   </url>
   <url>
     <loc>https://banglahq.com/directory</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/directory" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/directory" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/directory" />
   </url>
   <url>
     <loc>https://banglahq.com/startups</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/startups" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/startups" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/startups" />
   </url>
   <url>
     <loc>https://banglahq.com/pricing</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/pricing" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/pricing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/pricing" />
   </url>
   <url>
     <loc>https://banglahq.com/tools</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/tools" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/tools" />
   </url>
   <url>
     <loc>https://banglahq.com/about</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/about" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/about" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/rowshan-global-pathways</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/rowshan-global-pathways" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/rowshan-global-pathways" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/rowshan-global-pathways" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/doctorinfobd</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/doctorinfobd" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/doctorinfobd" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/doctorinfobd" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/bysports</loc>
+    <lastmod>2026-08-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/bysports" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/bysports" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/bysports" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/friends-star-agency</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/friends-star-agency" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/friends-star-agency" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/friends-star-agency" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/alam-blinds-bd</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/alam-blinds-bd" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/alam-blinds-bd" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/alam-blinds-bd" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/crafify</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/crafify" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/crafify" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/crafify" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/baltic-control-bd-ltd</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/baltic-control-bd-ltd" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/baltic-control-bd-ltd" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/baltic-control-bd-ltd" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/vibepacks</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/vibepacks" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/vibepacks" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/vibepacks" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/huzaifa-enterprize</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/huzaifa-enterprize" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/huzaifa-enterprize" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/huzaifa-enterprize" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/dhaka-digital-agency</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/dhaka-digital-agency" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/dhaka-digital-agency" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/dhaka-digital-agency" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/chittagong-port</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/chittagong-port" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/chittagong-port" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/chittagong-port" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/ssl-wireless</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/ssl-wireless" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/ssl-wireless" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/ssl-wireless" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/praava-health</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/praava-health" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/praava-health" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/praava-health" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/bashundhara-group</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/bashundhara-group" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/bashundhara-group" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/bashundhara-group" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/selise</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/selise" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/selise" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/selise" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/foodpanda-bd</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/foodpanda-bd" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/foodpanda-bd" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/foodpanda-bd" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/renata-limited</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/renata-limited" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/renata-limited" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/renata-limited" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/uttara-motors</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/uttara-motors" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/uttara-motors" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/uttara-motors" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/aamra-companies</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/aamra-companies" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/aamra-companies" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/aamra-companies" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/digital-healthcare</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/digital-healthcare" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/digital-healthcare" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/digital-healthcare" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/rangs-group</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/rangs-group" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/rangs-group" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/rangs-group" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/akij-group</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/akij-group" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/akij-group" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/akij-group" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/shahjalal-islami-bank</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/shahjalal-islami-bank" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/shahjalal-islami-bank" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/shahjalal-islami-bank" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/khulna-shipyard</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/khulna-shipyard" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/khulna-shipyard" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/khulna-shipyard" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/rajshahi-silk</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/rajshahi-silk" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/rajshahi-silk" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/rajshahi-silk" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/sylhet-tea</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/sylhet-tea" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/sylhet-tea" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/sylhet-tea" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/rangpur-dairy</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/rangpur-dairy" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/rangpur-dairy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/rangpur-dairy" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/barisal-fish</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/barisal-fish" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/barisal-fish" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/barisal-fish" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/mymensingh-agro</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/mymensingh-agro" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/mymensingh-agro" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/mymensingh-agro" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/daffodil-int</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/daffodil-int" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/daffodil-int" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/daffodil-int" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/summit-group</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/summit-group" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/summit-group" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/summit-group" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/shuttle-bd</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/shuttle-bd" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/shuttle-bd" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/shuttle-bd" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/muktopaath</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/muktopaath" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/muktopaath" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/muktopaath" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/tiger-it</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/tiger-it" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/tiger-it" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/tiger-it" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/meetbd</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/meetbd" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/meetbd" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/meetbd" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/square-group</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/square-group" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/square-group" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/square-group" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/aci-limited</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/aci-limited" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/aci-limited" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/aci-limited" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/brac</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/brac" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/brac" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/brac" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/beximco</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/beximco" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/beximco" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/beximco" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/chaldal</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/chaldal" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/chaldal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/chaldal" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/shohoz</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/shohoz" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/shohoz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/shohoz" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/sheba-xyz</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/sheba-xyz" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/sheba-xyz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/sheba-xyz" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/nagad</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/nagad" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/nagad" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/nagad" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/bangladesh-garment</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/bangladesh-garment" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/bangladesh-garment" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/bangladesh-garment" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/ispahani</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/ispahani" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/ispahani" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/ispahani" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/10-minute-school</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/10-minute-school" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/10-minute-school" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/10-minute-school" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/banglalink</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/banglalink" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/banglalink" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/banglalink" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/pran-rfl</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/pran-rfl" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/pran-rfl" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/pran-rfl" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/interiorofai</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/interiorofai" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/interiorofai" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/interiorofai" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/startbd</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/startbd" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/startbd" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/startbd" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/banglaseo</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/banglaseo" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/banglaseo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/banglaseo" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/robi</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/robi" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/robi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/robi" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/daraz</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/daraz" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/daraz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/daraz" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/pathao</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/pathao" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/pathao" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/pathao" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/walton</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/walton" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/walton" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/walton" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/bkash</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/bkash" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/bkash" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/bkash" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/grameenphone</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/grameenphone" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/grameenphone" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/grameenphone" />
+  </url>
+  <url>
+    <loc>https://banglahq.com/caption-cloud</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://banglahq.com/caption-cloud" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://banglahq.com/bn/caption-cloud" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://banglahq.com/caption-cloud" />
   </url>
 </urlset>

@@ -37,6 +37,10 @@ function mapRow(row: any): Business {
         )
       : [],
     tags: row.tags ?? [],
+    cover_url: row.cover_url ?? null,
+    plan: row.plan ?? "free",
+    plan_expires_at: row.plan_expires_at ?? null,
+    address: row.address ?? "",
   };
 }
 

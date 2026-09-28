@@ -1,6 +1,5 @@
-// Runs before `vite dev` and `vite build`; writes public/sitemap.xml (en) and public/sitemap-bn.xml (bn).
-// Each sitemap includes <xhtml:link> hreflang alternates so crawlers can discover
-// the translated version of every page from either sitemap.
+// Runs before `vite dev` and `vite build`; writes public/sitemap.xml (en) and public/sitemap-bn.xml (bn)
+// with reciprocal absolute hreflang alternates.
 import { writeFileSync } from "fs";
 import { resolve } from "path";
 import { createClient } from "@supabase/supabase-js";
@@ -13,76 +12,41 @@ const SUPABASE_KEY =
   process.env.VITE_SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_PUBLISHABLE_KEY || "";
 
 const staticPages = [
-  { loc: "/", priority: "1.0", changefreq: "daily" },
-  { loc: "/directory", priority: "0.9", changefreq: "daily" },
-  { loc: "/startups", priority: "0.8", changefreq: "weekly" },
-  { loc: "/pricing", priority: "0.7", changefreq: "monthly" },
-  { loc: "/tools", priority: "0.6", changefreq: "monthly" },
-  { loc: "/about", priority: "0.5", changefreq: "monthly" },
+  { path: "/", priority: "1.0", changefreq: "daily" },
+  { path: "/directory", priority: "0.9", changefreq: "daily" },
+  { path: "/startups", priority: "0.8", changefreq: "weekly" },
+  { path: "/pricing", priority: "0.7", changefreq: "monthly" },
+  { path: "/tools", priority: "0.6", changefreq: "monthly" },
+  { path: "/about", priority: "0.5", changefreq: "monthly" },
 ];
 
 const escapeXml = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
    .replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 
-const bnStaticPages = staticPages.map((p) => ({
-  ...p,
-  loc: p.loc === "/" ? "/bn/" : `/bn${p.loc}`,
-}));
+const enUrl = (p: string) => `${BASE_URL}${p}`;
+const bnUrl = (p: string) => `${BASE_URL}${p === "/" ? "/bn/" : `/bn${p}`}`;
 
-function urlLoc(loc: string, slug: string | null) {
-  const path = slug ?? loc;
-  return `${BASE_URL}/${escapeXml(path)}`;
+type Page = { path: string; lastmod: string; changefreq: string; priority: string };
+
+function entry(p: Page, lang: "en" | "bn") {
+  const loc = lang === "en" ? enUrl(p.path) : bnUrl(p.path);
+  return `  <url>
+    <loc>${escapeXml(loc)}</loc>
+    <lastmod>${p.lastmod}</lastmod>
+    <changefreq>${p.changefreq}</changefreq>
+    <priority>${p.priority}</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="${escapeXml(enUrl(p.path))}" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="${escapeXml(bnUrl(p.path))}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(enUrl(p.path))}" />
+  </url>`;
 }
 
-function urlElement(
-  loc: string,
-  slug: string | null,
-  lastmod: string,
-  changefreq: string,
-  priority: string,
-  xhtmlAlt: string | null,
-) {
-  let el = `  <url>\n    <loc>${urlLoc(loc, slug)}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>`;
-  if (xhtmlAlt) el += `\n    ${xhtmlAlt}`;
-  return el + `\n  </url>`;
-}
-
-function buildUrlEntries(
-  pages: typeof staticPages,
-  businesses: { slug: string; updated_at: string | null }[],
-  ownLang: "en" | "bn",
-  altLang: "en" | "bn",
-  altBaseLoc: (loc: string) => string,
-) {
-  const ownPages = ownLang === "bn" ? bnStaticPages : staticPages;
-  const entries: string[] = [];
-
-  for (const p of ownPages) {
-    const lastmod = TODAY;
-    const altLoc = altBaseLoc(p.loc);
-    const xhtmlAlt = `<xhtml:link rel="alternate" hreflang="${altLang === "bn" ? "bn-BD" : "en"}" href="${escapeXml(altLoc)}" />`;
-    entries.push(urlElement(p.loc, null, lastmod, p.changefreq, p.priority, xhtmlAlt));
-  }
-
-  for (const b of businesses) {
-    const lastmod = b.updated_at ? new Date(b.updated_at).toISOString().split("T")[0] : TODAY;
-    const ownLoc = ownLang === "bn" ? `/bn/${b.slug}` : `/${b.slug}`;
-    const altLoc = altBaseLoc(`/${b.slug}`);
-    const xhtmlAlt = `<xhtml:link rel="alternate" hreflang="${altLang === "bn" ? "bn-BD" : "en"}" href="${escapeXml(altLoc)}" />`;
-    entries.push(urlElement(ownLoc, b.slug, lastmod, "weekly", "0.8", xhtmlAlt));
-  }
-
-  return entries;
-}
-
-function xmlFor(entries: string[]) {
-  return `<?xml version="1.0" encoding="UTF-8"?>
+const xmlFor = (entries: string[]) => `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${entries.join("\n")}
 </urlset>
 `;
-}
 
 async function main() {
   let businesses: { slug: string; updated_at: string | null }[] = [];
@@ -100,18 +64,19 @@ async function main() {
     }
   }
 
-  const enEntries = buildUrlEntries(staticPages, businesses, "en", "bn", (loc) =>
-    loc === "/" ? "/bn/" : `/bn${loc}`
-  );
-  const bnEntries = buildUrlEntries(bnStaticPages, businesses, "bn", "en", (loc) =>
-    loc === "/bn/" ? "/" : loc.slice(3)
-  );
+  const pages: Page[] = [
+    ...staticPages.map((p) => ({ ...p, lastmod: TODAY })),
+    ...businesses.map((b) => ({
+      path: `/${b.slug}`,
+      lastmod: b.updated_at ? new Date(b.updated_at).toISOString().split("T")[0] : TODAY,
+      changefreq: "weekly",
+      priority: "0.8",
+    })),
+  ];
 
-  writeFileSync(resolve("public/sitemap.xml"), xmlFor(enEntries));
-  writeFileSync(resolve("public/sitemap-bn.xml"), xmlFor(bnEntries));
-
-  console.log(`sitemap.xml written (${staticPages.length + businesses.length} entries with hreflang alternates)`);
-  console.log(`sitemap-bn.xml written (${bnStaticPages.length + businesses.length} entries with hreflang alternates)`);
+  writeFileSync(resolve("public/sitemap.xml"), xmlFor(pages.map((p) => entry(p, "en"))));
+  writeFileSync(resolve("public/sitemap-bn.xml"), xmlFor(pages.map((p) => entry(p, "bn"))));
+  console.log(`sitemaps written: ${pages.length} URLs each (en + bn)`);
 }
 
 main();
