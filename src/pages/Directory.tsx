@@ -55,6 +55,7 @@ export default function Directory() {
             <Button
               variant="outline"
               onClick={() => setShowFilters(!showFilters)}
+              aria-label={t("Show filters", "ফিল্টার দেখুন")}
               className="md:hidden"
             >
               <SlidersHorizontal size={16} />
@@ -70,7 +71,7 @@ export default function Directory() {
             {showFilters && (
               <div className="flex items-center justify-between mb-4 md:hidden">
                 <h3 className="font-heading font-bold">{t("Filters", "ফিল্টার")}</h3>
-                <button onClick={() => setShowFilters(false)}><X size={24} /></button>
+                <button onClick={() => setShowFilters(false)} aria-label={t("Close filters", "ফিল্টার বন্ধ করুন")}><X size={24} /></button>
               </div>
             )}
 
