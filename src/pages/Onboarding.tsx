@@ -156,9 +156,12 @@ export default function Onboarding() {
       <div className="sticky top-0 z-50 bg-card border-b border-border">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-3">
-            <button onClick={() => navigate(-1)} className="text-muted-foreground hover:text-foreground transition-colors">
+            <button onClick={() => navigate(-1)} aria-label={t("Go back", "পিছনে যান")} className="text-muted-foreground hover:text-foreground transition-colors">
               <ArrowLeft size={20} />
             </button>
+            <h1 className="font-heading text-lg font-bold text-foreground">
+              {t("List your business on BanglaHQ", "BanglaHQ-এ আপনার ব্যবসা যোগ করুন")}
+            </h1>
             <span className="font-ui text-sm text-muted-foreground">
               {t(`Step ${step} of ${TOTAL_STEPS}`, `ধাপ ${step}/${TOTAL_STEPS}`)}
             </span>

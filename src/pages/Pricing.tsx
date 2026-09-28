@@ -123,7 +123,7 @@ export default function Pricing() {
                   <Star size={12} /> {t("Most Popular", "সবচেয়ে জনপ্রিয়")}
                 </div>
               )}
-              <h3 className="font-heading font-bold text-xl text-foreground">{t(plan.name_en, plan.name_bn)}</h3>
+              <h2 className="font-heading font-bold text-xl text-foreground">{t(plan.name_en, plan.name_bn)}</h2>
               <div className="mt-3">
                 <span className="font-display text-4xl text-primary">{plan.price}</span>
                 <span className="text-sm text-muted-foreground font-ui ml-1">{t(plan.period_en, plan.period_bn)}</span>
