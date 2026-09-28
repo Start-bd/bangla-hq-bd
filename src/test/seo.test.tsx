@@ -6,7 +6,8 @@ import { StaticRouter } from "react-router-dom/server";
 
 // --- Helpers ---------------------------------------------------------------
 
-function renderWithRouter(children: React.ReactNode, url: string) {
+function renderWithRouter(children: React.ReactNode, url?: string) {
+  if (!url) return renderToString(<>{children}</>);
   return renderToString(
     <StaticRouter location={url}>
       <LanguageProvider>{children}</LanguageProvider>
