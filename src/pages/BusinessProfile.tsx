@@ -268,10 +268,9 @@ export default function BusinessProfile() {
               {t("About", "সম্পর্কে")}
             </h2>
             {business.description_en || business.description_bn ? (
-              <div
-                className="font-body text-foreground/80 leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: (lang === "bn" ? business.description_bn : business.description_en) || "" }}
-              />
+              <div className="font-body text-foreground/80 leading-relaxed whitespace-pre-line">
+                {(lang === "bn" ? business.description_bn : business.description_en) || ""}
+              </div>
             ) : (
               <p className="text-muted-foreground italic">{t("No description yet.", "এখনো কোনো বিবরণ নেই।")}</p>
             )}
